@@ -1,0 +1,128 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4R, Ispit - SEP2, 60p/30p}
+\date{09.09.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i zameniti svojim podacima.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h/2h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+% ----------- BEGIN 1 -----------
+\item \textbf{Non-Blocking IO (25p/18p)}
+\\Napraviti osnovu za klijent-server Java aplikaciju koja izvr\v{s}ava bankovske transakcije. Prilikom povezivanja na server klijenti dobijaju spisak brojeva ra\v{c}una svih trenutno povezanih klijenata. Podrazumevano, svi klijenti su primaoci sve dok ne odaberu broj ra\v{c}una na koji \v{z}ele da po\v{s}alju novac. U tom trenutku klijent postaje po\v{s}iljalac i server o\v{c}ekuje od njega iznos koji \v{z}eli da prebaci na odredi\v{s}ni ra\v{c}un. U ovoj inicijalnoj verziji aplikacije se ne o\v{c}ekuje potpuna implementacija korisni\v{c}kih ra\v{c}una ve\'c{} se podrazumeva da svaki transfer uspeva.
+
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu $12221$ koristeći \textbf{blokiraju\'c{}i Java Channels API}. Nakon formiranja konekcije klijent serveru \v{s}alje svoj broj ra\v{c}una a zatim o\v{c}ekuje od servera spisak brojeva ra\v{c}una svih trenutno povezanih klijenata (po jedan u svakom redu) i ispisuje isti na standardni izlaz. Nakon toga, klijent \v{c}eka na unos broja ra\v{c}una primaoca sa standardnog ulaza (broj ra\v{c}una ne mora da se unese) i \v{s}alje ga serveru zajedno sa iznosom koji predstavlja neozna\v{c}eni ceo broj takođe u\v{c}itan sa standarnog ulaza. Nakon slanja ovih podataka, server odgovara podrvrdom o izvr\v{s}enju transakcije i klijent ispisuje odgovor na standardni izlaz. Primalac takođe prima poruku o izvr\v{s}enju transakcije i istu ispisuje na standardni izlaz. \hfill (7p/5p)
+  \item Napraviti Java aplikaciju koja ima ulogu servera. Otvoriti lokalni server na portu $12221$ koristeći \textbf{neblokiraju\'c{}i Java Channels API}. Nakon primanja klijenta, server od njega o\v{c}ekuje broj ra\v{c}una i nakon primanja broja ra\v{c}una mu \v{s}alje brojeve ra\v{c}una svih trenutno povezanih klijenata. Nakon toga, server \v{c}eka na poruke od klijenata. Oni klijenti koji po\v{s}alju broj ra\v{c}una primaoca se tuma\v{c}e kao po\v{s}iljaoci i od njih se dodatno o\v{c}ekuje i iznos koji \v{z}ele da prebace na ra\v{c}un primaoca. Server svakom po\v{s}iljaocu \v{s}alje nisku \texttt{"Transfer na racun BROJ\_RACUNA (IZNOS) je uspesno izvrsen"}, a svakom primaocu \v{s}alje nisku \texttt{"Primljeno IZNOS od BROJ\_RACUNA"} (\textbf{nije neophodno implementirati stanje ra\v{c}una na serverskoj strani, pretpostaviti da svaki transfer uspeva}). \hfill (13p/10p)
+  \item Obezbediti da u slučaju izuzetaka, svi resursi budu ispravno zatvoreni i da se po\v{s}iljaocu po\v{s}alje poruka \texttt{Primalac nije pronadjen} ukoliko je primalac prekinuo vezu pre iniciranja transfera. \hfill (5p/3p)
+\end{itemize}
+% ----------- END 1 -----------
+
+\vspace{20pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP Sockets (20p/12p)}
+\\Implementirati UDP server koji korisnicima daje uvid u stanje njihovog ra\v{c}una. Ra\v{c}uni mogu u\v{c}itati tokom rada servera i server je du\v{z}an da te izmene primeni u toku svog izvr\v{s}avanja. Klijenti slanjem datagrama serveru sa svojim brojem ra\v{c}una dobijaju uvid u trenutno stanje ra\v{c}una.
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu UDP klijenta. Poslati inicijalni datagram lokalnom serveru na portu $12345$ sa brojem ra\v{c}una. Primiti datagram od servera koji sadr\v{z}i iznos koji se nalazi na ra\v{c}unu i ispisati iznos na standardni izlaz (informacije proizvoljno kodirati u datagrame). Iznos posmatrati kao pozitivan realan broj. \hfill (5p/2p)
+  \item Napraviti Java aplikaciju koja ima ulogu UDP servera.
+    \begin{itemize}
+      \item Kreirati nit za unos novih ra\v{c}una sa standardnog ulaza. Tokom rada servera, korisnik mo\v{z}e da unese nove brojeve ra\v{c}una u formatu \texttt{BROJ\_RACUNA IZNOS}. Server je du\v{z}an da taj ra\v{c}un doda u spisak aktivnih ra\v{c}una. Iznos posmatrati kao pozitivan realan broj. Pri pokretanju servera smatrati da ne postoji nijedan registrovan aktivni ra\v{c}un. \hfill (8p/5p)
+      \item Kreirati nit za slanje/primanje datagrama. Kad god server primi datagram od klijenta, izvla\v{c}i broj ra\v{c}una i odgovara datagramom koji sadr\v{z}i informaciju o iznosu koji je trenutno dodeljen tom ra\v{c}unu (informacije proizvoljno kodirati u datagrame). Ukoliko broj ra\v{c}una nije aktivan, poslati \texttt{-1} kao trenutno stanje. \hfill (6p/4p)
+    \end{itemize}
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (1p/1p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{40pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Sortiranje (15p) (za studente koji nisu radili projekat)}
+\\Napraviti Java aplikaciju koja pomoću niti sortira kolekciju brojeva.
+\begin{itemize}
+  \item U fajlu, čije se ime zadaje preko standardnog ulaza, se nalazi kolekcija \v{c}iji su elementi realni brojevi. Elementi kolekcije su u fajlu razdvojeni belinama. U\v{c}itati kolekciju i na standardni izlaz ispisati ukupan broj elemenata kolekcije. \hfill (3p)
+  \item Za svaki element kolekcije pokrenuti zasebnu nit koja će vratiti njegov \textit{indeks} --- broj elemenata kolekcije koji su pre njega u sortiranom poretku. \hfill (6p)
+  \item Formirati strukturu podataka za sortiranje, koja će na osnovu elementa kolekcije i njegovog indeksa čuvati elemente u sortiranom poretku. Imati u vidu da se isti broj može javiti više puta. \hfill (3p)
+  \item Na standardni izlaz ispisati sortiranu kolekciju. \hfill (1p)
+  \item Na standardni izlaz ispisati koliko je vremena bilo potrebno da se kolekcija sortira u milisekundama. \hfill (1p)
+  \item Postarati da su svi resursi ispravno zatvoreni u slučaju izuzetaka \hfill (1p)
+\end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------
+

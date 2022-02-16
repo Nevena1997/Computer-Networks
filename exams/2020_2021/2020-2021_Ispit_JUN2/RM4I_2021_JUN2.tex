@@ -1,0 +1,210 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - JUN2 2021}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Threads/URL(17p) (za studente koji nisu radili projekat)}
+\\U direktorijumu \textbf{urls}, unutar direktorijuma \textbf{tests} na Desktopu, nalaze se datoteke koje sadrže spisak URL-ova (po jedan u svakoj liniji) i brojeva.
+\begin{itemize}
+  \item Za svaku datoteku pokrenuti zasebnu nit koja će je obrađivati i ispisivati statistiku za tu datoteku.\hfill (4p)
+  \item Za svaku pročitanu liniju datoteke kreirati novi URL objekat koristeći URL klasu. Preskočiti sve linije koje ne predstavljaju validan URL. \hfill (2p)
+  \item Za validni URL ispisati protokol i putanju iz URL-a koristeći URL klasu. Izlaz formatirati na sledeći način:\\
+  \texttt{PUTANJA\_DO\_RESURSA KORIŠĆENI\_PROTOKOL}
+  \hfill (5p)
+
+\noindent
+\begin{lstlisting}  
+ulaz: 3 http://www.matf.bg.ac.rs:3030/dir1/dir2/test.txt
+izlaz: /dir1/dir2/test.txt http 
+\end{lstlisting}
+
+\item Postarati se da se ispisi niti na standardni izlaz ne prepliću. \hfill (3p)
+
+\item Početak svake linije u datotekama je broj koji označava dužinu linije obrade (u daljem tekstu $n$). Ukoliko je ime hosta unutar URL-a navedeno putem IP adrese, dodatno uz informacije iznad ispisati linije obrade (matrica $n \times n$ poput matrice u primeru) i informaciju o verziji IP adrese, kao u primeru ispod. \hfill (3p)
+
+\noindent
+\begin{lstlisting}
+ulaz: 6 http://123.123.123.123:80/dir1/dir2/test.txt
+izlaz: 
+>=====
+=>====
+==>===
+===>==
+====>=
+=====>
+(v4) /dir1/dir2/test.txt http  
+ulaz: 4 sftp://2001:0db8:85a3:::8a2e:0370:7334/dir1/dir2/test.txt
+izlaz:
+>===
+=>==
+==>=
+===>
+(v6) /dir1/dir2/test.txt sftp 
+\end{lstlisting}
+\end{itemize}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{Kviz (28p/20p)}
+\\Napraviti TCP klijent-server aplikaciju preko koje se korisnici takmiče u kvizu. Server ima ulogu sudije u kvizu i vodi evidenciju o poenima takmičara (klijenata).
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP servera (koristeći \textit{Java Sockets API}) koji osluškuje na portu 12321. Pri pokretanju, server sa standardnog ulaza učitava nisku koja predstavlja putanju do direktorijuma u kome se nalaze fajlovi sa pitanjima za kviz. Naziv fajla predstavlja naziv oblasti iz koje su pitanja u njemu, a svaki fajl ima format kao u primeru ispod. \hfill (4p/3p)
+  \item Napraviti Java klasu koja ima ulogu TCP klijenta (koristeći \textit{Java Sockets API}). Klijent formira konekciju sa lokanim serverom na portu 12321. Nakon prihvatanja svakog novog klijenta, server kreira novu nit koja će preuzeti dalju komunikaciju sa njim. Nakon uspostavljanja konekcije, klijent šalje serveru nisku koja predstavlja ime tog klijenta, učitanu sa standardnog ulaza, a zatim od servera dobija nazive oblasti iz kojih može da se takmiči. \hfill (6p/5p)
+  \item Pošto klijent odabere oblast iz koje želi da dobija pitanja, započinje kviz. Server šalje klijentu pitanje po pitanje iz odabrane oblasti i čeka 5 sekundi da pročita odgovor od klijenta. \hfill (2p/2p) 
+  \item U slučaju da takmičar (klijent):
+  \begin{enumerate}
+      \item zakasni da pošalje odgovor --- server mu ne menja rezultat i odgovara porukom:\\ \texttt{Niste stigli da odgovorite na vreme.}
+      \item pogrešno odgovori --- server umanjuje rezultat tog klijenta i odgovara porukom:\\ \texttt{Netačan odgovor. Izgubili ste 1 poen.}
+      \item tačno odgovori --- server mu dodaje na trenutni rezultat broj poena koje nosi to pitanje i obaveštava ga o tome porukom:\\ \texttt{Tačan odgovor. Osvojili ste <broj poena>}.
+      \item pošalje kao odgovor opciju: \texttt{Ne znam} --- server mu ne menja rezultat i odgovara porukom:\\ \texttt{Niste znali tačan odgovor.}
+  \end{enumerate} \hfill (7p/5p)
+  \item Server sve vreme vodi evidenciju o najbolja 3 rezultata iz svake oblasti. \hfill (3p/2p)
+  \item Nakon potrošenih svih pitanja u fajlu, server šalje klijentu poruku \texttt{Kviz je zavrsen!}. Dodatno, ukoliko je rezultat među najbolja 3 rezultata do sada iz oblasti, šalje mu i poruku \texttt{Medju najbolja tri ste rezultata iz ove oblasti do sada!} i ažurira evidenciju o najboljim takmičarima. \hfill (3p/2p)
+  \item Ukoliko klijent odustane pre kraja kviza i ne odgovori na sva pitanja, smatrati da je odustao i njegove poene ne računati za ukupan plasman. Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (2p/1p)
+\end{itemize}
+
+\vspace{15pt}
+
+\noindent
+\begin{lstlisting}
+  ulaz: /home/ispit/Desktop/Kviz/Geografija.txt
+  Sadrzaj fajla:
+  1.Koji je glavni grad Holandije? Amsterdam 3 
+  2.Koje je najvece po povrsini ostrvo na svetu? Grenland 5
+  3.Koja je najsevernija prestonica na kopnu Evrope? Helsinki 7
+  4.Koja je najduza reka na svetu? Nil 5
+\end{lstlisting}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Protocol handlers (15p/10p)}
+\\Implementirati podr\v{s}ku za URL-ove koji koriste \texttt{quiz} protokol. Opis protokola je dat u prethodnom zadatku. 
+\begin{itemize}
+  \item Prilikom otvaranja konekcije, formirati vezu koriste\'c{}i \texttt{Socket API}. Povezati se na server i port na osnovu URL-a i otvoriti ulazni tok do odgovora od strane servera. \hfill (5p/3p)
+  \item Omogu\'c{}iti slanje upita pomo\'c{}u parametra \texttt{oblast} iz URL-a, npr.~za upit \texttt{}, kompletan URL bi bio:
+  \begin{lstlisting}
+    quiz://localhost:1337?oblast=Geografija
+  \end{lstlisting}
+  Server \v{s}alje nazad pitanje koja klijent ispisuje kao u primeru ispod. \hfill (5p/3p)
+  \item Ukoliko port nije naveden unutar URL-a, iskoristiti predefinisani podrazumevani port isti kao u prethodnom zadatku. \hfill (1p/1p)
+  \item Predefinisati \texttt{getInputStream()} metod da vra\'c{}a ulazni tok do odgovora od strane servera ukoliko je konekcija ostvarena, a \texttt{null} ako nije. \hfill (1p/1p)
+  \item Postarati se da je mogu\'c{}e bezbedno koristiti implementirani handler u vi\v{s}enitnom okru\v{z}enju. \hfill (1p/1p)
+  \item Napisati jednostavan test - kreirati URL, otvoriti konekciju do resursa i ispisati sve podatke koje server po\v{s}alje. \hfill (2p/1p)
+\end{itemize}
+
+\vspace{10pt}
+\noindent
+  \begin{lstlisting}
+    URL:   quiz://localhost
+    izlaz: Nije uneta oblast.
+  \end{lstlisting}
+  \begin{lstlisting}
+    URL:   quiz://localhost:12345?oblast=Geografija
+    izlaz: Koji je glavni grad Holandije?
+  \end{lstlisting}
+  \begin{lstlisting}
+    URL:   quiz://localhost:7337?oblast=Geografija
+    izlaz: Neuspela konekcija.
+  \end{lstlisting}
+  \begin{lstlisting}
+    URL:   quiz://localhost?oblast=x
+    izlaz: Nepostojeca oblast.
+  \end{lstlisting}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

@@ -1,0 +1,53 @@
+\documentclass[]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\pagenumbering{gobble}
+
+\title{Ra\v{c}unarske mre\v{z}e 2019, Kolokvijum, 4RB}
+\author{}
+\date{08.04.2019.}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item Selektivno kopiranje fajla \textbf{(10p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja koriste\'c{}i odgovaraju\'c{}e ulazne i izlazne tokove kopira sadr\v{z}aj tekstualnog fajla sa imenom koje se unosi preko standardnog ulaza u fajl \texttt{hex.txt}. Postarati se da se u slu\v{c}aju izuzetka prika\v{z}e odgovaraju\'c{}a poruka (razli\v{c}ita za razli\v{c}ite tipove izuzetaka). \hfill (2p)
+    \item Prekopirati samo one niske koje predstavljaju validne heksadecimalne brojeve (po\v{c}inju sa \texttt{0x} i sastoje se od cifara \texttt{0-F}, mogu bili mala ili velika slova) (npr. \texttt{0x1Abc2D}). \hfill (2p)
+    \item Koristiti baferisanje ulaznog i izlaznog toka zarad smanjenja broja IO operacija. \hfill (2p)
+    \item Niske ispisati u fajl tako da po jedna niska bude u svakoj liniji. \hfill (1p)
+    \item Podesiti kodnu stranu za izlazni fajl na ASCII. \hfill (1p)
+    \item Postarati se da se u slu\v{c}aju izuzetka garantuje da su zatvoreni svi kori\v{s}\'c{}eni resursi. \hfill (1p)
+  \end{itemize}
+
+  \item Skalarni proizvod vektora \textbf{(10p)}
+
+  Napraviti Java aplikaciju koja koriste\'c{}i niti ra\v{c}una skalarni proizvod dva vektora.
+  \begin{itemize}
+    \item Kao ulaz u program se daje putanja do tekstualnih fajlova u kojima se nalaze vektori \'v{c}iji je skalarni proizvod potrebno izra\v{c}unati - po jedan u svakom fajlu. U\v{c}itati i ispisati vektore na standardni izlaz. \hfill (1p)
+    \item Kreirati posebnu klasu \texttt{VectorMultiplicationException} i baciti izuzetak ovog tipa ukoliko vektori nemaju istu dimenziju. \hfill (1p)
+    \item Ozna\v{c}imo dimenziju vektora sa $n$. Pokrenuti $n$ niti i postarati se da svaka ra\v{c}una jedan element rezultuju\'c{}eg vektora. Ispisati rezultuju\'c{}i vektor na standardni izlaz. \hfill (4p)
+    \item Ra\v{c}unati $L_{1}$ normu rezultuju\'c{}eg vektora tokom rada svake niti. Kada svaka nit izra\v{c}una svoju vrednost, a\v{z}urira globalnu vrednost $L_{1}$ norme. Postarati se da nema trke za podacima - obezbediti kriti\v{c}nu sekciju proizvoljnim mehanizmom. $L_{1}$ norma vektora se ra\v{c}una po formuli (gde je $x$ vektor dimenzije $n$):  \hfill (3p) $$L_{1}(x) = \sum_{i=1}^{n}{x_{i}}$$ 
+    \item Voditi ra\v{c}una o obradi izuzetaka - program ili nit ne sme da se zaustavi u slu\v{c}aju izuzetka (npr. ukoliko se desi izuzetak prilikom ra\v{c}unanja elemenata rezultuju\'c{}eg vektora, smatrati da je rezultat $0$ i nastaviti sa radom). \hfill (1p)
+  \end{itemize}
+
+  \item URL Scanner \textbf{(10p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja sa standarnog ulaza u\v{c}itava URL-ove jedan po jedan u svakoj liniji. Formirati URL objekat za svaki u\v{c}itani URL i ispisati na standardni izlaz poruku ukoliko URL nije validan. \hfill (2p)
+    \item Ispisati protokol, \texttt{authority} i putanju iz URL-a koriste\'c{}i URL klasu. Izlaz formatirati na slede\'c{}i na\v{c}in:\\
+    \texttt{<KORI\v{S}\'C{}ENI\_PROTOKOL> <PODRAZUMEVANI\_PORT> <HOSTNAME> <PUTANJA\_DO\_RESURSA>} npr.\\
+    ulaz: \texttt{http://www.matf.bg.ac.rs:3030/dir1/dir2/test.txt} \\
+    izlaz: \texttt{http www.matf.bg.ac.rs 80 /dir1/dir2/test.txt} \hfill (3p) 
+    \item Ukoliko se unese IP adresa unutar URL-a umesto informacija iznad ispisati kao u primeru ispod (ako port nije unet presko\v{c}iti ga), a ako je to IPv4 adresa ispisati i njene bajtove:\\
+    \texttt{(v<VERZIJA\_IP\_ADRESE>) <KORI\v{S}\'C{}ENI\_PROTOKOL> <PORT> <PUTANJA\_DO\_RESURSA> [<BAJTOVI\_ADRESE>]} npr.\\
+    ulaz: \texttt{http:///123.123.123.123:80/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v4) http 80 /dir1/dir2/test.txt [123 123 123 123]} \\ 
+    ulaz: \texttt{sftp://2001:0db8:85a3:::8a2e:0370:7334/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v6) sftp /dir1/dir2/test.txt} \hfill (4p) 
+    \item Postarati se da u slu\v{c}aju izuzetka aplikacija ispravno zatvori kori\v{s}\'c{}ene resurse. \hfill (1p)
+  \end{itemize}
+\end{enumerate}
+
+\end{document}

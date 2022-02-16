@@ -1,0 +1,149 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4R, Ispit - JUN1}
+\date{18.06.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+  \item \textbf{Statistika protokola (15p) (za studente koji nisu radili projekat)}
+  \\Napisati program koji vodi statistiku protokola u URL-ovima koji se nalaze u datotekama na fajl sistemu.
+  \begin{itemize}
+    \item U direktorijumu \texttt{urls} unutar direktorijuma \texttt{tests} na Desktop-u se nalaze datoteke koje sadr\v{z}e spisak URL-ova (po jedan u svakoj liniji). Kori\v{s}\'cenjem odgovaraju\'cih tokova podataka prebrojati koliko linija sadr\v{z}i svaka datoteka. Na standardni izlaz, za svaku datoteku, ispisati njenu apsolutnu putanju i broj linija kao u primeru ispod u levoj koloni. \hfill (2p)
+    \item Za svaku datoteku pokrenuti zasebnu nit koja \'ce obradjivati i ispisivati statistiku za tu datoteku. \hfill (2p)
+    \item Za svaku pro\v{c}itanu liniju datoteke kreirati novi URL objekat koriste\'c{}i \texttt{URL} klasu. Presko\v{c}iti sve linije koje ne predstavljaju validan URL. \hfill (1p)
+    \item Za svaki validni URL proveriti protokol koji se koristi i pratiti ukupan broj pojavljivanja tog protokola u trenutnoj datoteci. Nakon \v{s}to nit obradi datoteku, na standardni izlaz ispisati statistiku kao u primeru ispod u desnoj koloni. \hfill (4p)
+    \item Postarati se da se ispisi svake niti na standardni izlaz ne prepliću. \hfill (4p)
+    \item Postarati se da program ispravno obradjuje specijalnim slu\v{c}ajeve (npr. ako datoteka ne postoji na datoj putanji) i ispravno zatvoriti sve kori\v{s}\'c{}ene resurse u slu\v{c}aju izuzetka. \hfill (2p)
+  \end{itemize}
+  
+\noindent
+\begin{tabular}{ll}
+\begin{lstlisting}
+/home/ispit/Desktop/tests/urls/1.txt 6
+/home/ispit/Desktop/tests/urls/2.txt 4
+/home/ispit/Desktop/tests/urls/3.txt 3
+/home/ispit/Desktop/tests/urls/4.txt 5
+\end{lstlisting}&
+\begin{lstlisting}
+- /home/ispit/Desktop/tests/urls/4.txt
+- /home/ispit/Desktop/tests/urls/3.txt
+  http   : 2
+  https  : 1
+- /home/ispit/Desktop/tests/urls/1.txt
+  http   : 4
+  https  : 2
+- /home/ispit/Desktop/tests/urls/2.txt
+  ftp    : 3
+  http   : 1
+\end{lstlisting}
+\end{tabular}
+% ----------- END 1 -----------
+\vspace{15pt}
+
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{Zbir brojeva (20p/12p)}
+\\Napraviti klijent-server TCP aplikaciju preko koje se ra\v{c}una zbir realnih brojeva.
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP servera, koji oslu\v{s}kuje na portu $10000$, koriste\'c{}i Java \texttt{Socket} API. Za svakog povezanog klijenta, server pokre\'ce zasebnu nit, preko koje se vr\v{s}i komunikacija sa klijentom. \hfill (5p/3p)
+  \item Napraviti Java klasu koja ima ulogu klijenta. Klijent formira konekciju sa lokanim serverom na portu $10000$ i \v{s}alje serveru realne brojeve koje \v{c}ita sa standardnog ulaza sve dok korisnik ne unese nisku \texttt{KRAJ}. Server ispisuje svaki realni broj koji dobije od klijenta na standardni izlaz. \hfill (5p/3p)
+  \item Server za svakog klijenta ra\v{c}una zbir do tada poslatih realnih brojeva. Nakon \v{s}to klijent po\v{s}alje sve realne brojeve, server klijentu vra\'ca njihov zbir. \hfill (5p/3p)
+  \item Klijent na stanadrni izlaz ispisuje realan broj koji mu je poslao server.\hfill (2p/1p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (3p/2p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Povr\v{s}ina kruga (25p/18p)}
+\\Napraviti klijent-server TCP aplikaciju preko koje se ra\v{c}unaju povr\v{s}ine krugova datih polupre\v{c}nika.
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog \textbf{neblokiraju\'c{}eg} TCP servera koji oslu\v{s}kuje na portu $31415$, koriste\'c{}i Java \texttt{Channels} API. Nakon konkecije, klijent \v{s}alje serveru realane brojeve koji predstavljaju polupre\v{c}nike krugova. Kao odgovor, server \v{s}alje klijentu po jedan realan broj nakon svakog primljenog polupre\v{c}nika koji predstavlja povr\v{s}inu kruga sa primljenim polupre\v{c}nikom. Ukoliko server primi negativan broj od klijenta, to se tuma\v{c}i kao zahtev za prekid veze. \hfill (15p/10p)
+  \item Napraviti Java klasu koja ima ulogu \textbf{blokiraju\'c{}eg} TCP klijenta koriste\'c{}i Java \texttt{Channels} API. Klijent formira konekciju sa lokanim serverom na portu $31415$. Nakon formiranja konekcije, klijent serveru \v{s}alje jedan po jedan realan broj u\v{c}itan sa standardnog ulaza i pre u\v{c}itavanja narednog broja \v{c}eka odgovor od servera. Ispisati odgovore servera na standardni izlaz. \hfill (8p/6p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p)
+\end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

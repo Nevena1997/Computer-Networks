@@ -1,0 +1,146 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - SEP1 2021}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Dekompresovati arhivu na Desktop i ubaciti svoje podatke u ime pomenutog direktorijuma.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (\textbf{ne} \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Selektivno kopiranje fajla (15p) (za studente koji nisu radili projekat)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja koriste\'c{}i odgovaraju\'c{}e ulazne i izlazne tokove kopira sadr\v{z}aj tekstualnog fajla sa imenom koje se unosi preko standardnog ulaza u fajl \texttt{timestamps.txt}. Postarati se da se u slu\v{c}aju izuzetka prika\v{z}e odgovaraju\'c{}a poruka (razli\v{c}ita za razli\v{c}ite tipove izuzetaka). \hfill (3p)
+    \item Prekopirati samo one niske koje predstavljaju validne vremenske niske u formatu \texttt{DD-MM-YYYY}. Pretpostaviti da svi meseci imaju najvi\v{s}e 31 dan i da je godina ve\'c{}a od 2000 (npr. \texttt{02-12-2015}). \hfill (6p)
+    \item Koristiti baferisanje ulaznog i izlaznog toka zarad smanjenja broja IO operacija. \hfill (2p)
+    \item Niske ispisati u fajl tako da po jedna niska bude u svakoj liniji. \hfill (2p)
+    \item Podesiti kodne strane za oba fajla na UTF-8. \hfill (1p)
+    \item Postarati se da se u slu\v{c}aju izuzetka garantuje da su zatvoreni svi kori\v{s}\'c{}eni resursi. \hfill (1p)
+  \end{itemize}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 2 -----------
+\item \textbf{TCP Sockets - Aerodromi (20p/12p)}
+\\Napraviti osnovu za TCP klijent-server Java aplikaciju koja pruža informacije o odlaznim letovima sa aerodroma. 
+
+\begin{itemize}
+  \item  U direktorijumu \texttt{aerodromi}, unutar direktorijuma \texttt{tests} na Desktop-u, nalaze se tekstualni fajlovi koji sadrže informacije o odlaznim letovima sa nekog aerodroma za taj dan. Ime fajla predstavlja ime grada u kome se aerodrom nalazi, a svaka linija fajla sadrži informacije o jednom leto i oblika je:\\
+  \texttt{<JEDINSTVENA\_ŠIFRA\_LETA> <GRAD\_SLETANJA> <VREME\_POLETANJA> <VREME\_SLETANJA>}.\\
+  Na serverskoj strani keširati ove podatke kako se ne bi čitali iznova za svakog klijenta. \hfill (4p/3p)
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP servera koji osluškuje na portu $12345$. Svakom novom klijentu server šalje spisak svih gradova za čije aerodrome ima informacije o letovima.  \hfill (4p/2p)
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP klijenta. Nakon uspostavljanja konekcije sa serverom na portu $12345$, klijent čeka spisak gradova od servera i ispisuje ih na standardni izlaz.  Nakon toga, klijent dodatno šalje serveru ime grada, uneto sa standardnog ulaza, sa čijeg aerodroma želi da dobije informacije o odlaznim letovima, a zatim ponovo čeka odgovor od servera koji ispisuje na standardni izlaz i završava sa radom. \hfill (7p/4p)
+  \item U zavisnosti od imena grada, server šalje keširane informacije iz odgovarajućeg fajla. \hfill (4p/2p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (1p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Non-Blocking IO (25p/18p)}
+\\Napraviti klient-server Java aplikaciju koriste\'c{}i \texttt{TCP Sockets/Channels API}.
+\begin{itemize}
+    \item Napisati Java klasu koja ima ulogu \textbf{blokiraju\'c{}eg} TCP klijenta koriste\'c{}i \texttt{Java Channels API}. Klijent formira konekciju sa lokalnim serverom na portu 12345 i zatim \v{s}alje serveru 4 bajta jedan za drugim, učitani sa standardnog ulaza. \hfill (4p/3p)
+    \item Napisati Java klasu koja ima ulogu lokalnog \textbf{neblokiraju\'c{}eg} TCP servera, koji oslu\v{s}kuje na portu 12345, koriste\'c{}i \texttt{Java Channels API}. Server čuva skriveni ceo broj. Prilikom obrađivanja klijenta server prihvata bajtove od viših ka nižim i kreira ceo broj (tipa int). Na primer, ukoliko klijent šalje redom bajtove 0xA0, 0xB0, 0xC0 i 0xD0, server kreira broj 0xA0B0C0D0.
+%      \item Svaki bajt koji prihvati kombinuje na sledeći način: 
+%      \begin{lstlisting}
+%      Klijent:					| Server
+%      Standardni ulaz:			|		
+%      	0xA0 0xB0 0xC0 0xD0     |
+%      							|
+%      0xA0 ------------------>  |  0x00000000 | 0xA0000000
+%      0xB0 ------------------>  |  0xA0000000 | Ox00B00000
+%      0xC0 ------------------>  |  0xA0B00000 | 0x0000C000
+%      0xD0 ------------------>  |  0xA0B0C000 | Ox000000D0 
+%      \end{lstlisting}
+%      
+Nakon uspešnog prihvatanja bajtova, server klijentu vraća novi broj nastao primenom operacije XOR na prihvaćene bajtove i skrivenog broja. 
+      
+   \hfill (6p/4p)
+    \item Server slučajnim izborom generiše skriveni ceo broj prilikom pokretanja i ispisuje ga na standardni izlaz. Broj mora biti veći od 999 i prost. \hfill (10p/8p)
+    \item  Klijent ispisuje primljeni broj na standardni izlaz. Klijent može više puta da učitava i šalje bajtove serveru dok ne prekine vezu.\hfill (3p/2p)
+     \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+  \end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

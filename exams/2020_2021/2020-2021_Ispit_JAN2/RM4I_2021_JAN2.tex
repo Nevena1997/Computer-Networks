@@ -1,0 +1,145 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - JAN2}
+\date{04.02.2021.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Log-file parser (15p) (za studente koji nisu radili projekat)}
+\\Napraviti Java aplikaciju koja selektivno parsira log fajl.
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja prima putanju do regularnog fajla koji predstavlja log fajl i \v{c}ita ga koriste\'c{}i URL klasu i FILE protokol. Ispisati sadr\v{z}aj fajla na standardni izlaz. \hfill (3p)
+  \item U fajlu se nalaze linije u slede\'c{}em formatu:\\
+  \texttt{[<DATUM\_VREME>][<IP\_ADRESA>][<URL\_DO\_RESURSA\_NA\_SERVERU>]} npr.\\
+  \texttt{[12.12.2010 17:41:00][123.123.123.123][\url{http://test.com/path/secret.txt}]}\\
+  \texttt{[12.12.2010 17:51:03][2607:f0d0:1002:51::4][\url{https://test.com/path/secret.txt}]}\\
+  \texttt{[15.12.2010 17:52:11][123.23.2.33][\url{ftp://test.com/secret.txt}]}\\
+  \texttt{[15.12.2010 17:52:21][123.23.2.33][\url{FILE:///home/test/secret.txt}]}\\
+  Filtrirati pro\v{c}itani sadr\v{z}aj tako da se na standardni izlaz (umesto ispisivanja \v{c}ivavog fajla) ispi\v{s}u samo one linije u kojima je zahtev za resurs stigao preko HTTP ili HTTPS protokola. \hfill (3p)
+  \item Format ispisa linije na standardni izlaz promeniti na:\\
+  \texttt{v<VERZIJA\_IP\_ADRESE>:<KORI\v{S}\'C{}ENI\_PROTOKOL>:<PUTANJA\_DO\_RESURSA>}\\
+  (zameniti tagove odgovaraju\'c{}im informacijama) npr.\\
+  \texttt{v4:http:/path/secret.txt} \hfill (2p)
+  \item Ispisati samo one linije u kojima je vrednost niske koja predstavlja datum i vreme hronolo\v{s}ki pre trenutnog datuma i vremena. \hfill (4p)
+  \item Presko\v{c}iti linije u kojima je unutar URL-a naveden nepodrazumevani port za odgovaraju\'c{}i protokol. \hfill (2p)
+  \item Postarati se da u slu\v{c}aju izuzetka aplikacija ispravno zatvori kori\v{s}\'c{}ene resurse i tokove podataka. \hfill (1p)
+\end{itemize}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP Sockets (20p/12p)}
+\\Napraviti osnovu za klijent-server Java aplikaciju koriste\'c{}i \emph{Java UDP API} koja vr\v{s}i odgovaraju\'c{}e kodiranje niske. 
+
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu UDP klijenta. Poslati datagram lokalnom serveru na portu $12345$ koji sadr\v{z}i nisku (koja može da sadrži beline). Niska se učitava sa standardnog ulaza na klijentskoj strani. Primiti datagram koji predstavlja odgovor servera i rezultat ispisati na standardni izlaz. \hfill(8p/4p)
+  \item Napraviti Java aplikaciju koja ima ulogu servera koji sluša na portu $12345$. Kada dobije nisku od klijenta, tu nisku transformiše na sledeći način:
+  \begin{itemize}
+  	\item Ukoliko je karakter veliko slovo, postaje malo slovo i udvostručuje se.
+  	\item Ukoliko je karakter malo slovo, postaje veliko slovo.
+  	\item Ukoliko je karakter broj, postaje karakter \textbf{'.'} i udvostručuje se.
+  \end{itemize} 
+
+  Primer:\\
+  niska:  \texttt{mReze Ispit 2}\\
+  transformisana niska: \texttt{MrrEZE iiSPIT ..}\\ 
+  Poslati datagram po\v{s}iljaocu u kome se nalazi transformisana niska. \hfill(10p/7p)
+
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+\end{itemize}% ----------- END 2 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Non-Blocking IO - Loto (25p/18p)}
+\\Napraviti klient-server Java aplikaciju koriste\'c{}i \emph{TCP Sockets/Channels API} preko koje se ra\v{c}una broj pogodaka u igri Loto.
+\begin{itemize}
+    \item Napisati Java klasu koja ima ulogu \textbf{blokiraju\'c{}eg} TCP klijenta koriste\'c{}i Java Channels API. Klijent formira konekciju sa lokanim serverom na portu 12345 i zatim \v{s}alje serveru jednu Loto kombinaciju, to jest 7 celih brojeva iz intervala [1, 39], učitanu sa standardnog ulaza. \hfill (8p/6p)
+    \item Napisati Java klasu koja ima ulogu lokalnog \textbf{neblokiraju\'c{}eg} TCP servera, koji oslu\v{s}kuje na portu 12345, koriste\'c{}i Java Channels API. Server slučajnim izborom generiše jednu Loto kombinaciju. Nakon konekcije, klijent \v{s}alje serveru učitanu Loto kombinaciju. Brojevi unutar kombinacije se ne smeju ponavljati. Kao odgovor, server \v{s}alje klijentu informaciju o broju pogodaka u serverski generisanoj kombinaciji. \hfill (15p/11p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+  \end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

@@ -1,0 +1,50 @@
+\documentclass[]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\pagenumbering{gobble}
+
+\title{Ra\v{c}unarske mre\v{z}e 2018, Kolokvijum, 4IB}
+\author{}
+\date{22.11.2018.}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item Selektivno kopiranje fajla \textbf{(9p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja koriste\'c{}i odgovaraju\'c{}e ulazne i izlazne tokove kopira sadr\v{z}aj tekstualnog fajla sa imenom koje se unosi preko standardnog ulaza u fajl \texttt{emails.txt}. Postarati se da se u slucaju izuzetka prika\v{z}e odgovaraju\'c{}a poruka (razli\v{c}ita za razli\v{c}ite tipove izuzetaka) \hfill (2p)
+    \item Prekopirati samo one niske koje predstavljaju validne e-mail adrese (npr. nesto@nesto.domen) \hfill (3p)
+    \item Koristiti baferisanje ulaznog i izlaznog toka zarad smanjenja broja IO operacija \hfill (2p)
+    \item Podesiti kodne strane za oba fajla na UTF-8 \hfill (1p)
+    \item Postarati se da se u slu\v{c}aju izuzetka garantuje da su zatvoreni svi kori\v{s}\'c{}eni resursi \hfill (1p)
+  \end{itemize}
+
+  \item Vi\v{s}enitna pretraga \textbf{(12p)}
+
+  Napraviti Java aplikaciju koja koriste\'c{}i niti pretra\v{z}uje listu fajlova i ispisuje broj pojavljivanja zadatog karaktera.
+  \begin{itemize}
+    \item Kao ulaz u program se daje putanja do tekstualnog fajla u kom se nalaze putanje do svih fajlova koje je potrebno pretra\v{z}iti - po jedna u svakoj liniji. U\v{c}itati putanje i ispisati ih na standardni izlaz. \hfill (1p)
+    \item U\v{c}itati od korisnika klju\v{c}nu re\v{c} za pretragu, broj $n$ i karakter $k$. Pokrenuti $n$ niti i omoguciti da svaka nit uzima putanju iz kolekcije i obradjuje fajl na toj putanji. Kada zavr\v{s}i sa radom, nit uzima novu putanju iz kolekcije. Obezbediti da vi\v{s}e niti ne obradjuje isti fajl kao i da se svi fajlovi eventualno obrade. Svaka nit bi trebalo da ima jednaku verovatno\'c{}u pristupa elementima kolekcije (drugim re\v{c}ima, nije u redu da se pokrene 10 niti a samo jedna da uzima putanje i obradjuje ih). Za svaki fajl ispisati izve\v{s}taj u slede\'c{}em formatu:\\
+    \texttt{<ID\_NITI>:<PUTANJA\_DO\_FAJLA>:<BROJ\_POJAVLJIVANJA\_KARAKTERA\_$k$>} (zameniti tagove odgovaraju\'c{}im informacijama) npr.\\
+    \texttt{1:./temp/2.txt:33} \hfill (10p)
+    \item Voditi ra\v{c}una o obradi izuzetaka - program ili nit ne sme da se zaustavi u slu\v{c}aju izuzetka (npr. ukoliko fajl na datoj putanji ne postoji ignorisati gre\v{s}ku i nastaviti sa radom). \hfill (1p)
+  \end{itemize}
+
+  \item Parser log fajla \textbf{(9p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja prima putanju do regularnog fajla koji predstavlja log fajl i \v{c}ita ga koriste\'c{}i URL klasu i FILE protokol. Ispisati sadr\v{z}aj fajla na standardni izlaz. \hfill (3p)
+    \item U fajlu se nalaze linije u slede\'c{}em formatu:\\
+    \texttt{[<DATUM\_VREME>]:<IP\_ADRESA>:<URL\_DO\_RESURSA\_NA\_SERVERU>} npr.\\
+    \texttt{[12.12.2010]:123.123.123.123:\url{http://poincare.matf.bg.ac.rs/~ivan_ristovic/secret.txt}}\\
+    Filtrirati pro\v{c}itani sadrzaj tako da se na standardni izlaz ispi\v{s}u samo one linije u kojima URL sadr\v{z}i putanju do tekstualnog fajla (ekstenzija \texttt{txt}). \hfill (3p)
+    \item Format ispisa linije na standardni izlaz promeniti na:\\
+    \texttt{v<VERZIJA\_IP\_ADRESE>:<KORI\v{S}\'C{}ENI\_PROTOKOL>:<PUTANJA\_DO\_RESURSA>} (zameniti tagove odgovaraju\'c{}im informacijama) npr.\\
+    \texttt{v4:http:/courses/rm/secret.txt} \hfill (1p)
+    \item Ispisati samo one zahteve koji su stigli u toku prethodna 24h. \hfill (1p)
+    \item Postarati se da u slu\v{c}aju izuzetka aplikacija ispravno zatvori kori\v{s}\'c{}ene resurse. \hfill (1p)
+  \end{itemize}
+\end{enumerate}
+
+\end{document}

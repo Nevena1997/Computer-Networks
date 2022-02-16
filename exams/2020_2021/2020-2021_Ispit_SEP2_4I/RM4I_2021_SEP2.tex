@@ -1,0 +1,168 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\@,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - SEP1 2021}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira!\\
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi IntelliJ projekat u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}.\\ Dekompresovati arhivu na Desktop i ubaciti svoje podatke u ime pomenutog direktorijuma.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (\textbf{ne} \texttt{Import project}!) i otvoriti pomenuti \textbf{direktorijum}.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 2 -----------
+\item \textbf{TCP Sockets (25p/18p)}
+\\Napraviti osnovu za TCP klijent-server Java aplikaciju koja poma\v{z}e u odr\v{z}avanju server farme. Odr\v{z}avanje server farme podrazumeva obilazak i obradu svakog ra\v{c}unara. Takodje, u slučaju kvara, neophodno je ispraviti odgovaraju\'c{}i ra\v{c}unar. Po\v{s}to je broj ra\v{c}unara u farmi veliki, potrebno je puno tehni\v{c}ara i sistem za pra\'c{}enje trenutnog stanja farme. Sistem bi trebalo da \v{c}uva status za svaki od ra\v{c}unara u mre\v{z}noj topologiji farme i da omogu\'c{}i tehni\v{c}arima da udaljeno promene statuse ra\v{c}unara. Odlu\v{c}eno je da se za ove potrebe kreira Java serverska aplikacija koja \'c{}e omogu\'c{}iti tehni\v{c}arima da se pove\v{z}u i postavljaju upite sistemu --- kakvo je trenutno stanje farme, markiraj ra\v{c}unar \texttt{X} kao pokvaren, itd. Topologija serverske farme je takva da se mo\v{z}e predstaviti matricom veli\v{c}ine \texttt{NxN} (izgledno je da \'c{}e se veli\v{c}ina menjati u budu\'c{}nosti) i da se svaki ra\v{c}unar mo\v{z}e "adresirati" parom brojeva koji predstavljaju vrstu i kolonu u matrici, redom.
+
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP servera koji osluškuje na portu $13370$. Pre pokretanja servera, zatra\v{z}iti od korisnika da unese broj \texttt{N} koji predstavlja veli\v{c}inu matrice server farme. Nakon toga, server oslu\v{s}kuje na pomenutom portu i svakom novom klijentu inicijalno \v{s}alje stanje serverske farme --- trenutno stanje matrice farme. Ispisati matricu kao u primeru ispod --- sa \texttt{o} su ozna\v{c}eni ispravni, a sa \texttt{x} neispravni ra\v{c}unari. Prilikom pokretanja servera pretpostaviti da su svi ra\v{c}unari ispravni. Server svakog klijenta treba da obradi u zasebnoj niti. \hfill (4p/2p)
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP klijenta. Nakon uspostavljanja konekcije sa serverom na portu $12345$, klijent čeka na trenutno stanje farme od servera i ispisuje ga na standardni izlaz. Nakon toga, klijent \v{s}alje serveru upite koje tehni\v{c}ar unosi sa standardnog ulaza, sve dok se ne unese upit \texttt{exit}, nakon \v{c}ega klijent prestaje s radom. \hfill (3p/2p)
+  \item Nakon slanja stanja farme klijentu, server \v{c}eka na upite klijenta. Upiti mogu biti:  \hfill (13/11p)
+  \begin{enumerate}
+    \item \texttt{list} --- odgovor servera treba da bude trenutno stanje farme
+    \item \texttt{mark X Y} --- markira server sa koordinatama \texttt{(X, Y)} kao neispravan i \v{s}alje klijentu a\v{z}urirano stanje farme
+    \item \texttt{repair X Y} --- uklanja marker neispravnosti serveru sa koordinatama \texttt{(X, Y)} i \v{s}alje klijentu a\v{z}urirano stanje farme
+    \item \texttt{exit} --- server prestaje da obradjuje klijenta i raskida vezu (bez slanja odgovora klijentu)
+  \end{enumerate}
+  \textit{(ukoliko koordinate nisu ispravne, server ne vr\v{s}i nikakve modifikacije)}
+  \item Sinhronizovati pristup modelu farme na serverskoj strani. \hfill (3p/2p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (2p/1p)
+\end{itemize}
+
+\vspace{10pt}
+
+\noindent
+\begin{tabular}{lll}
+\begin{lstlisting}
+$ java Client.java
++|01234
+++-----
+0|ooooo
+1|ooooo
+2|ooooo
+3|ooooo
+4|ooooo
+\end{lstlisting}&
+\begin{lstlisting}
+(upit) mark 3 3
++|01234
+++-----
+0|ooooo
+1|ooooo
+2|ooxoo // markirano polje (3,3)
+3|oooox // drugi tehnicar markirao
+4|ooooo
+\end{lstlisting}&
+\begin{lstlisting}
+(upit) repair 3 3
++|01234
+++-----
+0|oooxo
+1|ooooo
+2|ooooo // ispravljeno
+3|oooox
+4|ooooo
+\end{lstlisting}
+\end{tabular}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Protocol handlers (20p/12p)}
+\\Implementirati podr\v{s}ku za URL-ove koji koriste \texttt{farm} protokol. Opis protokola je dat u prethodnom zadatku, pretpostaviti da je server pokrenut na istom portu kao i u prethodnom zadatku. 
+\begin{itemize}
+  \item Prilikom otvaranja konekcije, formirati vezu koriste\'c{}i \texttt{Socket API}. Povezati se na server i port na osnovu URL-a i otvoriti ulazni tok do odgovora od strane servera. \hfill (5p/3p)
+  \item Omogu\'c{}iti slanje upita pomo\'c{}u parametra \texttt{oblast} iz URL-a, npr.~za upit \texttt{repair 3 4}, kompletan URL bi bio:
+  \begin{lstlisting}
+    farm://localhost:13370?q=repair&x=3&y=4
+  \end{lstlisting}
+  Server \v{s}alje nazad odgovor u primeru iznad (jedno stanje farme prilikom ostvarivanja konekcije, tj.~pre upita, i jedno stanje farme nakon upita). \hfill (5p/3p)
+  \item Ukoliko port nije naveden unutar URL-a, iskoristiti predefinisani podrazumevani port isti kao u prethodnom zadatku. \hfill (1p/1p)
+  \item Predefinisati \texttt{getInputStream()} metod da vra\'c{}a ulazni tok do odgovora od strane servera ukoliko je konekcija ostvarena, a \texttt{null} ako nije. \hfill (1p/1p)
+  \item Postarati se da je mogu\'c{}e bezbedno koristiti implementirani handler u vi\v{s}enitnom okru\v{z}enju. \hfill (1p/1p)
+  \item Napisati jednostavan test - kreirati URL, otvoriti konekciju do resursa i ispisati sve podatke koje server po\v{s}alje. \hfill (2p/1p)
+\end{itemize}
+% ----------- END 3 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Nesto (15p) (za studente koji nisu radili projekat)}
+
+% ----------- END 1 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

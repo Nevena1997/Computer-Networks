@@ -1,0 +1,143 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4I, Kolokvijum - B}
+\date{24.11.2019.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_kolB\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i preimenovati ga tako da ime\\
+      odgovara podacima studenta. Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} i otvoriti pomenuti direktorijum. Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{2h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+  \item \textbf{Tokovi podataka i niti (15p)}
+  \\Napisati program koji rekurzivno obilazi direktorijum i ispisuje broj linija u svim \texttt{.c} fajlovima koriste\'c{}i niti.
+  \begin{itemize}
+    \item Na Desktop-u se nalazi direktorijum \texttt{tests}. Obi\'c{}i pomenuti direktorijum i ispisati na standardni izlaz ukupan broj svih regularnih fajlova unutar tog direktorijuma. \hfill (2p)
+    \item Za svaki pronadjeni fajl sa ekstenzijom \texttt{.c} kreirati novi URL objekat koriste\'c{}i \texttt{URL} klasu i \texttt{FILE} protokol. 
+    Ispisati kreirane URL-ove na standardni izlaz (videti primere ispod). 
+    \vspace{5pt}
+    \\
+    \begin{tabular}{ll}
+      Putanja & Odgovaraju\'c{}i URL\\
+      \texttt{tests/dir1/1.txt} & \texttt{FILE:///home/ispit/Desktop/tests/dir1/1.txt}
+    \end{tabular}
+    \vspace{5pt}
+    \hfill (2p)
+    \item Za svaki kreirani URL, kreirati zasebnu nit koja \'c{}e otvoriti \textbf{baferisani} ulazni tok do resursa putem URL klase i pro\v{c}itati sadr\v{z}aj fajla (detalji obrade su u narednoj stavci). Kodnu stranu prilikom u\v{c}itavanja postaviti na ASCII. \hfill (4p)
+    \item Na standardni izlaz ispisati ukupan broj linija u svim fajlovima iz prethodne stavke tako \v{s}to \'c{}e svaka nit prebrojati linije za fajl koji joj je dodeljen (videti primer ispisa ispod teksta zadatka). Pritom, paziti na sinhronizaciju niti ukoliko se koristi deljeni broja\v{c}. \hfill (5p)
+    \item Postarati se da program u slu\v{c}ajevima ispravno zatvori sve kori\v{s}\'c{}ene resurse. \hfill (1p)
+  \end{itemize}
+
+  \noindent
+  \begin{lstlisting}
+  ulaz:  
+  izlaz: files:     20
+         url:       FILE:///home/ispit/Desktop/tests/dir/dir1/dir11/palindrome.c
+         url:       FILE:///home/ispit/Desktop/tests/dir/dir1/smile.c
+         url:       FILE:///home/ispit/Desktop/tests/dir/dir2/dir21/pi.c
+         result:    85
+  \end{lstlisting}
+% ----------- END 1 -----------
+\begin{center}
+  \vspace{10pt}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+% ----------- BEGIN 2 -----------
+  \item \textbf{Sockets (15p)}
+  \\
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja ima ulogu servera. Pokrenuti lokalni server na portu 31415, koristeći \texttt{ServerSocket} klasu. Server za svakog povezanog klijenta pokreće zasebnu nit. \hfill (4p)
+    \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu 31415 koristeći \texttt{Socket} klasu. Nakon formiranja konekcije klijent šalje serveru relativnu putanju do fajla na fajlsistemu servera (unetu sa standardnog ulaza) u odnosu na direktorijum \texttt{tests}. Ispisati primljenu putanju na standardni izlaz na serverskoj strani, a klijentu poslati indikator da li je putanja validna ili ne (npr. putanja je nevalidna ukoliko fajl na toj putanji ne postoji). \hfill (3p)
+    \item Zadatak servera je da izračuna zbir svih realnih brojeva koji se nalaze u datom fajlu. Server šalje klijentu zbir, a klijent rešenje ispisuje na standardni izlaz. U slučaju da u fajlu nema realnih brojeva, klijent treba da ispiše poruku \textit{Fajl ne sadrzi realne brojeve} na standardni izlaz. \hfill (7p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (1p)
+  \end{itemize}
+
+  \noindent
+  \begin{lstlisting}
+  ulaz:          dir2/1.test
+  izlaz server:  dir2/1.test
+  izlaz klijent: Validna putanja
+                 Fajl ne sadrzi realne brojeve
+  \end{lstlisting}
+  \begin{lstlisting}
+  ulaz:          dir2/2.test
+  izlaz server:  dir2/2.test
+  izlaz klijent: Validna putanja
+                 69.41
+  \end{lstlisting}
+  \begin{lstlisting}
+  ulaz:          dir2/3.test
+  izlaz server:  dir2/3.test
+  izlaz klijent: Validna putanja
+                 34.27
+  \end{lstlisting}
+% ----------- END 2 -----------
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------
+

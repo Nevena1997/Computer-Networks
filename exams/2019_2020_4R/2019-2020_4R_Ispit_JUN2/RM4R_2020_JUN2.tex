@@ -1,0 +1,166 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4R, Ispit - JUN2}
+\date{30.06.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Operacije sa matricama (15p) (za studente koji nisu radili projekat)}
+  \\Napraviti Java aplikaciju koja pomoću niti računa trag i transponant matrice.
+  \begin{itemize}
+    \item Kao ulaz u program se daje putanja do tekstualnog fajla u kome se nalaze celobrojne matrice. U jednom redu se nalaze elementi jedne vrste matrice, razdvojeni blanko karakterom dok su matrice u fajlu su razdvojene novim redom (kao u primeru ispod). Učitati sadržaj fajla i ispisati matrice na standardni izlaz. \hfill (3p)
+    \item Označimo dimenziju matrice sa $n \times m$. Za transponovanje matrice, pokrenuti $n*m$ niti, pri čemu je svaka nit zadužena da promeni poziciju samo jednom elementu matrice. \hfill (5p)
+    \item Za računanje traga matrice, pokrenuti $min(n, m)$ niti, tako da svaka nit dodaje na ukupan zbir odgovarajući element sa glavne dijagonale. \hfill (5p)
+    \item Ispisati transponovanu matricu i trag matrice na standardni izlaz (kao u primeru ispod). \hfill (1p)
+    \item Postarati se da program ispravno obradjuje specijalnim slu\v{c}ajeve (npr. ako datoteka ne postoji na datoj putanji) i ispravno zatvoriti sve kori\v{s}\'c{}ene resurse u slu\v{c}aju izuzetka. \hfill (1p)
+  \end{itemize}
+    
+  \vspace{10pt}
+  Primer datoteke:
+  % Ulaz & Izlaz\\
+  % \hline
+  \begin{lstlisting}
+    1 2 3
+    4 5 6
+
+    1 2
+    3 4
+
+    1 2
+    3 4
+    5 6
+  \end{lstlisting}
+
+  Primer izlaza:
+  \begin{lstlisting}
+    1 4
+    2 5
+    3 6
+    trag = 6
+    1 3
+    2 4
+    trag = 5
+    1 3 5
+    2 4 6
+    trag = 5
+  \end{lstlisting}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP (20p/12p)}
+\\Napraviti klijent-server aplikaciju preko koje se dobija binarni zapis brojeva.
+\begin{itemize}
+  \item Napisati Java klasu koja ima ulogu lokalnog UDP servera koji oslu\v{s}kuje na portu 10101 koriste\'c{}i Java Datagram API. Server prihvata pakete od klijenata (maksimalne veličine \texttt{4B}). Za svaki prihvaćen paket ispisati poruku na standardni izlaz sa informacijala o rednom broju primljenog paketa i adresom sa koje je stigao paket. \hfill (6p/4p)
+  \item Napisati Java klasu koja ima ulogu UDP klijenta koriste\'c{}i Java Datagram API. Klijent sa standardnog ulaza učitava neoznačene cele brojeve, sve dok ne unese \textit{KRAJ}. Za svaki učitan broj poslati serveru paket sa brojem kao sadr\v{z}ajem. Za svaki poslati paket, klijent dobija paket nazad od servera, \v{c}iji sadr\v{z}aj ispisuje na standardni izlaz. \hfill (6p/4p)
+  \item Za svaki prihvaćen paket, server klijentu koji je poslao paket šalje binarnu reprezentaciju celog broja izvu\v{c}enog iz sadr\v{z}aja paketa. \hfill (6p/3p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{NonBlockingIO (25p/18p)}
+\\Napraviti client-server TCP aplikaciju preko koje se ra\v{c}unaju zajednički troškovi cimera.
+\begin{itemize}
+    \item Napisati Java klasu koja ima ulogu lokalnog \textbf{neblokiraju\'c{}eg} TCP servera, koji oslu\v{s}kuje na portu 12345 koriste\'c{}i Java Channels API. \hfill (4p/3p)
+    \item Napisati Java klasu koja ima ulogu \textbf{blokiraju\'c{}eg} TCP klijenta koriste\'c{}i Java Channels API. Klijent formira konekciju sa lokanim serverom na portu 12345 a zatim \v{s}alje serveru nisku učitanu sa standardnog ulaza koja predstavlja ime cimera, Posle poslatog imena klijent u\v{c}itava instrukcije sa standardnog ulaza (po jednu u svakoj liniji) i izvr\v{s}ava operacije na osnovu tipa instrukcije: \hfill (7p/5p)
+    \begin{itemize}
+        \item Ako u\v{c}itana linija predstavlja pozitivan broj, taj broj predstavlja količinu novca koju je klijent uložio u zajednički život sa svojim cimerima. Za takav ulaz, klijent šalje serveru taj broj.
+        \item Ako je u\v{c}itana niska \texttt{stanje}, šalje se serveru tu i klijent očekuje odgovor od servera, koji ispisuje na standardni izlaz.  
+        \item Ako je u\v{c}itana niska \texttt{kraj}, klijent raskida vezu i prestaje sa radom.  
+        \item Ako tip instrukcije ne odgovara navedenim tipovima, ignorisati liniju i nastaviti sa radom.  
+    \end{itemize} 
+    \item Server vodi evidenciju o uloženom novcu za svakog cimera. Server vr\v{s}i operacije na osnovu tipa primljenog sadr\v{z}aja od klijenata: \hfill (12p/9p)
+    \begin{itemize}
+        \item Ako je primljen pozitivan ceo broj, server dodaje taj broj na ukupnu količinu novca koji je odgovarajući cimer uložio.
+        \item Ako je primljen zahtev \texttt{stanje}, server šalje klijentu ime svakog cimera i količinu novca koji je taj cimer uložio. 
+    \end{itemize} 
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+  \end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

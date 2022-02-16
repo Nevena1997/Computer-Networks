@@ -1,0 +1,152 @@
+\documentclass[]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=HTML,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4R, Ispit - Jun 2}
+\date{05.07.2019.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+
+Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+Vreme za rad: \textbf{2.5h}. Sre\'{c}no!
+\end{center}
+\makeatother
+
+
+\begin{enumerate}
+  \item Sockets \textbf{(16p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja ima ulogu servera. Pokrenuti lokalni server na portu 12345 koriste\'c{}i klasu \texttt{ServerSocket}. Server svim povezanim klijentima \v{s}alje sadr\v{z}aj fajla \texttt{serverfile.txt} (smestiti linije fajla u proizvoljnu kolekciju) i zatim se konekcija prekida. Server pokre\'c{}e zasebnu nit prilikom povezivanja klijenta i vr\v{s}i slanje pomenutog fajla u toj niti. \hfill (5p)
+    \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu 12345 koriste\'c{}i \texttt{Socket} klasu i ispisati sadr\v{z}aj fajla koji je server poslao. \hfill (2p)
+    \item Pre slanja fajla klijentu, server od klijenta dobija ceo broj koji predstavlja redni broj linije fajla. Server zatim umesto da \v{s}alje ceo fajl, \v{s}alje samo odgovaraju\'{c}u liniju. Ukoliko linija sa takvim rednim brojem ne postoji, poslati tekst: \texttt{Ne postoji}. \hfill (3p)
+    \item Obezbediti da kada se nekom klijentu po\v{s}alje linija sa rednim tra\v{z}enim rednim brojem, drugi klijenti ne mogu zahtevati istu - ispisati isti tekst kao iznad u tom slu\v{c}aju. Postarati se da ne postoji trka za podacima (ako je to potrebno u implementaciji). \hfill (5p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (1p)
+  \end{itemize}
+
+  \item Swing \textbf{(14p)}
+  Napraviti Java Swing aplikaciju koja ima ulogu jednostavnog HTML editora. Izgled aplikacije je dat na slici ispod a HTML test primeri na slede\'c{}oj strani.
+  \begin{itemize}
+    \item Ispo\v{s}tovati izgled aplikacije (ne me\v{s}ati redosled komponenti i postarati se da su odnosi u veli\v{c}ini kao na slici). \hfill (2p)
+    \item Napraviti prozor i u njega dodati skrolabilnu komponentu za prikaz HTML prezentacije. \hfill (2p)
+    \item Omogu\'c{}iti da se prozor mo\v{z}e pro\v{s}iriti i smanjiti a da se raspored i razmera komponenti ne promeni. \hfill (2p)
+    \item Dodati komponentu za unos URL-a koji vodi do HTML prezentacije (testirati na lokalnom fajl-sistemu koriste\'c{}i URL sa FILE protokolom). Dodati dugme \texttt{Prika\v{z}i} koje prikazuje prezentaciju sa datog URL-a u komponenti za prikaz. Ako URL nije validan ili ne vodi do HTML fajla, ispisati odgovaraju\'c{}u poruku u komponenti za prikaz. \hfill (4p)
+    \item Dodati dugme \texttt{Ocisti} \v{c}iji je efekat da iz HTML fajla ukloni sve HTMLtagove. Rezultat se prikazuje u komponenti za prikaz. \hfill (4p)
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{fig1.PNG}
+    \includegraphics[scale=0.7]{fig2.PNG}
+    \label{fig2}
+    \caption{Izgled aplikacije pre i posle aktivacije dugmeta Ocisti}
+  \end{figure}
+\end{enumerate}
+
+
+\newpage
+
+HTML test fajlovi za zadatak 2:
+
+\begin{itemize}
+  \item 1.html
+    \begin{lstlisting}
+      <!DOCTYPE html>
+        <html>
+          <body>
+            <h1>1.HTML 1</h1>
+            <h2>1.HTML 2</h1>
+            
+            <p>My paragraph.</p>
+
+            <h3>1.HTML 3</h1>
+            <h4>1.HTML 4</h1>
+            <h5>1.HTML 5</h1>
+            <h6>1.HTML 6</h1>
+
+            Test
+          </body>
+        </html>
+    \end{lstlisting}
+  \item 2.html
+    \begin{lstlisting}
+      <!DOCTYPE html>
+        <html>
+          <body>
+            <h1>1.HTML 1</h1>
+            <h2>1.HTML 2</h1>
+            
+            <p>My paragraph.</p>
+
+            <h3>1.HTML 3</h1>
+
+            Test
+
+            <h1>1.HTML 1</h1>
+          </body>
+        </html>
+    \end{lstlisting}
+  \item 3.html
+     \begin{lstlisting}
+      <!DOCTYPE html>
+        <html>
+          <body>
+            Test
+            <h2>1.HTML 2</h1>
+            <h4>1.HTML 4</h1>
+            
+            <p>My paragraph.</p>
+
+            <h3>1.HTML 3</h1>
+
+            Test
+
+            <h1>1.HTML 1</h1>
+          </body>
+        </html>
+    \end{lstlisting}
+\end{itemize}
+
+
+\end{document}

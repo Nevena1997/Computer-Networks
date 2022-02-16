@@ -1,0 +1,127 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - Septembar0 2021}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+   \item \textbf{Matrično množenje (15p) (za studente koji nisu radili projekat)}
+  \\ Napraviti Java aplikaciju koja koristeći niti množi dve kvadratne matrice.
+  \begin{itemize}
+    \item Kao ulaz u program se daje putanja do tekstualnih fajlova u kojima se nalaze kvadratne matrice koje je potrebno pomnožiti - po jedna u svakom fajlu. Učitati sadržaje fajlova i ispisati matrice na standardni izlaz. \hfill (3p)
+    \item Ukoliko matrice ne mogu da se množe, ispisati poruku i prekinuti izvršavanje programa. \hfill (1p)
+    \item Označimo dimenzije matrica sa $n \times n$. Pokrenuti $n^2$ niti i postarati se da svaka nit računa jedan element rezultujuće matrice. Ispisati rezultujuću matricu na standardni izlaz. \hfill (5p)
+    \item Računati zbir elemenata rezultujuće matrice tokom rada svake niti. Kada svaka nit izračuna svoju vrednost, ažurira globalni zbir. Postarati se da nema trke za podacima - obezbediti kritičnu sekciju proizvoljnim mehanizmom. \hfill (4p)
+    \item Postarati se da program ispravno obrađuje specijalne slučajeve (npr. ako fajl ne postoji na datoj putanji) i ispravno zatvoriti sve korišćene resurse u slučaju izuzetka. \hfill (2p)
+  \end{itemize}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP Sockets (20p/12p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja ima ulogu UDP servera. Slušati na portu 12345 i primiti datagrame od klijenata koristeći \texttt{DatagramPacket} klasu. Sadržaj svakog datagrama primljenog od klijenta je velicine \texttt{4B}. Ispisati tekst \texttt{Stigao datagram!} kad god server primi validan datagram od nekog klijenta. \hfill (4p)
+    \item Napraviti Java aplikaciju koja ima ulogu UDP klijenta. Poslati UDP datagram lokalnom serveru na portu 12345 koristeći \texttt{DatagramPacket} klasu. Sadržaj datagrama je jedan pozitivan ceo broj veličine \texttt{4B} koji se unosi sa standardnog ulaza. \hfill (4p)
+    \item Inicijalno, klijent šalje serveru datagram sa sadržajem koji predstavlja prirodni broj $n$ (ne veći od $80$). Nakon primanja datagrama, server klijentu šalje prvih $n$ Fibonačijevih brojeva \footnote{Fibonačijevi brojevi se računaju po formuli: $F_0 = 0$, $F_1 = 1$, $F_n = F_{n-1} + F_{n-2}$ za $n > 1$}, po jedan u svakom datagramu. Svaki poslati broj je veličine \texttt{8B}. \hfill (5p)
+    \item Primiti datagrame na klijentskoj strani, i za svaki primljeni datagram ispisati primljeni broj na standardni izlaz. \hfill (2p)
+    \item Keširati Fibonačijeve brojeve na serverskoj strani (ne računati ih iznova za svakog klijenta). \hfill (4p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (1p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Površina pravougaonika (25p/18p)}
+\\Napraviti klijent-server TCP aplikaciju preko koje se računaju površine pravougaonika zadatih koordinatama gornjeg levog i donjeg desnog temena.
+\begin{itemize}
+    \item Napraviti Java klasu koja ima ulogu lokalnog \textbf{blokirajućeg} TCP klijenta koristeći Java Channels API. Klijent formira konekciju sa lokanim serverom na portu $54321$. Nakon formiranja konekcije, klijent serveru u petlji šalje po 4 cela broja, učitana sa standardnog ulaza, koja predstavljaju koordinate gornjeg levog i donjeg desnog temena pravougaonika. Podrazumeva se da su stranice pravougaonika paralelne koordinatnim osama. Nakon slanja, klijent čeka odgovor od servera i ispisuje ga na standardni izlaz. \hfill (8p/6p)
+    \item Napraviti Java klasu koja ima ulogu lokalnog \textbf{neblokirajućeg} TCP servera, koji osluškuje na portu 54321 koristeći Java Channels API. Server kao odgovor na svaku iteraciju petlje šalje klijentu po jedan ceo broj koji predstavlja površinu zadatog pravougaonika. Ukoliko server primi četiri 0, to se tumači kao zahtev za prekid veze. \hfill (15p/10p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill (2p)
+\end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

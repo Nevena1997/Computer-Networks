@@ -1,0 +1,170 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4I, Ispit - JAN1}
+\date{11.01.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i zameniti svojim podacima.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{2.5h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+  
+% ----------- BEGIN 1 -----------
+\item \textbf{TCP Sockets (15p)}
+\\Implementirati server, koji će imati ulogu da održava \emph{in-memory} tabelu šahista i njihove trenutne rejtinge. Tabela ima kolone: \texttt{id (int)}, \texttt{naziv (String)} i \texttt{elo (int)}.
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu $1996$ koristeći \textbf{Socket} klasu. Nakon formiranja konekcije, klijent mo\v{z}e poslati vi\v{s}e zahteva serveru (zahtevi se unose sa standardnog ulaza), sve dok mu ne pošalje \texttt{bye}. Odgovori servera na zahtev se ispisuju na standardni izlaz. Mogući zahtevi su (implementirati u ovoj stavci samo slanje od strane klijenta): \hfill (3p)
+  \begin{itemize}
+      \item \textit{sel id} (\texttt{id} je tipa \texttt{int})
+      \item \textit{ins naziv} (\texttt{naziv} je tipa \texttt{String}) 
+      \item \textit{upd id elo} (\texttt{id} i \texttt{elo} su tipa \texttt{int})
+  \end{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu servera. Pokrenuti lokalni server na portu $1996$, koristeći \textbf{ServerSocket} klasu. Server za svakog primljenog klijenta pokreće zasebnu nit u kojoj \'c{}e se taj klijent obraditi tako \v{s}to se ispi\v{s}e poruka o pristiglom klijentu kao u primeru ispod. \hfill (2p)
+  \item Server pristigle zahteve obradjuje na slede\'c{}i na\v{c}in:
+  \begin{itemize}
+    \item \textit{sel id}: vra\'c{}a naziv i elo \v{s}ahiste sa datim identifikatorom \texttt{id} \hfill (2p)
+    \item \textit{ins naziv}: ubacuje u tabelu \v{s}ahistu sa datim imenom dodeljuju\'c{}i mu jedinstveni identifikator (slede\'c{}i slobodan ceo broj) i elo u vrednosti $1300$ (to je najmanja mogu\'c{}a vrednost za elo) i vra\'c{}a poruku o uspe\v{s}nosti operacije \hfill (2p)
+    \item \textit{upd id deltae}: vr\v{s}i izmenu elo vrednosti \v{s}ahiste sa identifikatorom \texttt{id} za \texttt{deltae} i vra\'c{}a poruku o uspe\v{s}nosti operacije \hfill (2p)
+  \end{itemize}
+  \item Ukoliko bilo koji od ovih zahteva nije ispravno formiran ili nije naveden iznad, vratiti tekst kao u primerima ispod. \hfill(1p)
+  \item Imajte u vidu da mogu da se dese konfliktne situacije (kao npr. da dva klijenta žele da promene elo istoj osobi). Obezbediti da se ovakvi zahtevi pravilno obrade. Takođe, obezbediti da u slučaju izuzetaka, resursi budu ispravno zatvoreni. \hfill (3p)
+\end{itemize}
+
+\vspace{10pt}
+\noindent
+\begin{tabular}{lll}
+  \begin{lstlisting}
+  > ins Magnus Carlsen
+  ins je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1300
+  > upd 1 30
+  upd je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1330
+  > upd 1 -10
+  upd je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1320
+  > bye
+  \end{lstlisting}&
+  \begin{lstlisting}
+  > ins Fabiano Caruana
+  ins je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 1300
+  > upd 1 1500
+  upd je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 2800
+  > upd 1 -10000
+  upd je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 1300
+  > bye
+  \end{lstlisting}&
+  \begin{lstlisting}
+  > ins Marko
+  ins je uspesno izvrsen
+  > sel 1
+  Marko: 1300
+  // drugi klijent: upd
+  > sel 1 
+  Marko: 1400
+  > ins Marko
+  ins je uspesno izvrsen
+  // nije isti Marko
+  > sel 2
+  Marko: 1300
+  > bye
+  \end{lstlisting}
+\end{tabular}
+% ----------- END 1 -----------
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+% ----------- BEGIN 2 -----------
+  \item \textbf{UDP Sockets (15p)}
+  \\Implementirati UDP server koji klijentima sluzi Fibona\v{c}ijeve brojeve. 
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja ima ulogu UDP servera. Slu\v{s}ati na portu 12345 i primiti datagrame od klijenata koriste\'c{}i \texttt{DatagramPacket} klasu. Sadr\v{z}aj svakog datagrama primljenog od klijenta je velicine \texttt{4B}. Ispisati tekst \texttt{Stigao datagram!} kad god server primi validan datagram od nekog klijenta. \hfill (3p)
+    \item Napraviti Java aplikaciju koja ima ulogu UDP klijenta. Poslati UDP datagram lokalnom serveru na portu 12345 koriste\'c{}i \texttt{DatagramPacket} klasu. Sadr\v{z}aj datagrama je jedan pozitivan ceo broj veli\v{c}ine \texttt{4B} koji se unosi sa standardnog ulaza. \hfill (3p)
+    \item Inicijalno, klijent \v{s}alje serveru datagram sa sadr\v{z}ajem koji predstavlja prirodni broj $n$ (ne ve\'c{}i od $80$). Nakon primanja datagrama, server klijentu \v{s}alje prvih $n$ Fibona\v{c}ijevih brojeva \footnote{Fibona\v{c}ijevi brojevi se ra\v{c}unaju po formuli: $F_0 = 0$, $F_1 = 1$, $F_n = F_{n-1} + F_{n-2}$ za $n > 1$}, po jedan u svakom datagramu. Svaki poslati broj je veli\v{c}ine \texttt{8B}. \hfill (4p)
+    \item Primiti datagrame na klijentskoj strani, i za svaki primljeni datagram ispisati primljeni broj na standardni izlaz. \hfill (2p)
+    \item Ke\v{s}irati Fibona\v{c}ijeve brojeve na serverskoj strani (ne ra\v{c}unati ih iznova za svakog klijenta). \hfill (2p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (1p)
+  \end{itemize}
+% ----------- END 2 -----------
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------

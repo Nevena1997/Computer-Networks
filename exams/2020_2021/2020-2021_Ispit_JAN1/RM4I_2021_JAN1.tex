@@ -1,0 +1,231 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Računarske mreže, Ispit - JAN1}
+\date{18.01.2021.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+  \item \textbf{Čitamo poeziju (15p) (za studente koji nisu radili projekat)}
+  \\Napisati program koji na standardni izlaz ispisuje informacije o pesmama.
+  \begin{itemize}
+	\item Sa standardnog ulaza se unosi reč. U direktorijumu \texttt{pesme} unutar direktorijuma \texttt{tests} na Desktop-u se nalaze datoteke koje sadrže pesme (naziv datoteke je naslov pesme, a svaka linija je jedan stih). 
+	
+     Na standardni izlaz, za svaku datoteku, ispisati naziv pesme, ispisati najduži stih i koliko se puta reč pojavljuje u toj datoteci. \hfill (6p)
+    \item Za svaku datoteku pokrenuti zasebnu nit koja će obrađivati i ispisivati informacije. \hfill (3p)
+    \item Postarati se da se ispisi svake niti na standardni izlaz ne prepliću. \hfill (4p)
+    \item Postarati se da program ispravno obrađuje specijalnim slučajeve (npr. ako datoteka ne postoji na datoj putanji) i ispravno zatvoriti sve korišćene resurse u slučaju izuzetka. \hfill (2p)
+  \end{itemize}
+  
+\noindent
+\begin{tabular}{l}
+\begin{lstlisting}
+Spisak datoteka:
+	\home\ispit\Desktop\tests\pesme\Dolap.txt
+	\home\ispit\Desktop\tests\pesme\DomovinaSeBraniLepotom.txt
+	\home\ispit\Desktop\tests\pesme\MozdaSpava.txt
+	\home\ispit\Desktop\tests\pesme\LjubavnaPesma.txt
+	\home\ispit\Desktop\tests\pesme\AlSuToGrdneMuke.txt
+	\home\ispit\Desktop\tests\pesme\PoslednjaPesma.txt
+\end{lstlisting}
+\\
+\begin{lstlisting}
+Ulaz:	kao 
+\end{lstlisting}
+\\
+\begin{lstlisting}
+Izlaz:
+	Dolap
+	Pusti snovi! Napred, vrance, nemoj stati,
+	4
+	DomovinaSeBraniLepotom
+	Sestrinom suzom majcinom brigom
+	0
+	MozdaSpava
+	Ja sad nemam svoju dragu, i njen ne znam glas.
+	3
+	LjubavnaPesma
+	I sa mnom ljube, ceznu, strepe, zude!
+	0
+	AlSuToGrdneMuke
+	kad bi mogle da se pruze!
+	0
+	PoslednjaPesma
+	Njen je plast suncani mozda tkivo lazi;
+	2
+\end{lstlisting}
+\end{tabular}
+% ----------- END 1 -----------
+\vspace{15pt}
+
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{TCP Sockets (25p/18p)}
+\\Napraviti Java klijent-server TCP igru iks-oks. 
+\begin{itemize}
+  \item Kreirati Java aplikaciju koja ima ulogu iks-oks igra\v{c}a - klijenta. Klijenti se povezuju na lokalni server na portu $12345$ i periodi\v{c}no izvr\v{s}avaju naredne operacije sve dok server ne signalizira kraj igre:
+  \hfill (3p)
+  \begin{itemize}
+    \item ispis trenutnog stanja igre tj.~iks-oks table (proizvoljno implementirati)
+    \item ucitavanje poteza od strane igraca (potez proizvoljno implementirati)
+    \item slanje poteza serveru (nije potrebno implementirati validaciju poteza na klijentskoj strani)
+  \end{itemize}
+  \item Kreirati Java aplikaciju koriste\'c{}i TCP Sockets API koja ima ulogu iks-oks servera. Server nakon pokretanja najpre \v{c}eka da se dva klijenta pove\v{z}u a zatim pokre\'c{}e igru. Nakon zavr\v{s}etka igre, server ponovo \v{c}eka na igra\v{c}e i nakon toga zapo\v{c}inje novu igru. \hfill (4p)
+  \item Implementirati iks-oks igru na strani servera. Naizmeni\v{c}no \v{c}itati poteze igra\v{c}a, a\v{z}urirati stanje igre i poslati a\v{z}urirano stanje klijentima. Kad se igra zavr\v{s}i, poslati igra\v{c}ima informaciju da se igra zavr\v{s}ila i prekinuti vezu sa igra\v{c}ima. \hfill (9p)
+  \item U slu\v{c}aju da igra\v{c} po\v{s}alje nevalidan potez serveru, server odgovara nazad porukom \texttt{Nevalidan potez}, i o\v{c}ekuje ponovo potez od istog igra\v{c}a. \hfill (2p) 
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p)
+\end{itemize}
+
+\vspace{10pt}
+\noindent
+\begin{tabular}{c c}
+  \begin{lstlisting}
+(klijent 1)       |
+                  |
+    ---           |
+    ---           |
+    ---           |
+                  |
+    > 5           |
+    --O           |
+    -X-           |
+    ---           |
+                  |
+    > 6           |
+    --O           |
+    OXX           |
+    ---           |
+                  |
+    > 2           |
+    OXO           |
+    OXX           |
+    ---           |
+                  |
+    > 8           |
+    OXO           |
+    OXX           |
+    -X-           |
+  \end{lstlisting}&
+  \begin{lstlisting}
+|      (klijent 2)
+|
+|          ---
+|          -X-
+|          ---
+|
+|          > 3
+|          --O
+|          -XX
+|          ---
+|
+|          > 4
+|          --O
+|          OXX
+|          -X-
+|
+|          > 1
+|          OXO
+|          OXX
+|          -X-
+|           
+|
+|
+|
+  \end{lstlisting}
+\end{tabular}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{UDP Sockets (20p/12p)}
+\\Napraviti UDP server koji ra\v{c}una povr\v{s}ine krugova \v{c}ije polupre\v{c}nike \v{s}alju klijenti.
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu UDP klijenta koriste\'c{}i Java Datagram API. Klijent \v{s}alje datagram serveru na portu $31415$ u kome se nalazi jedan realan broj u\v{c}itan sa standardnog ulaza. Primiti i ispisati odgovor servera na standardni izlaz. \hfill (9p/5p)
+  \item Napraviti Java klasu koja ima ulogu lokalnog UDP servera koji oslu\v{s}kuje na portu $31415$, koriste\'c{}i Java \texttt{UDP} API. Nakon primanja datagrama, server odgovara klijentu realnim brojem koji predstavlja povr\v{s}inu kruga \v{c}iji je polupre\v{c}nik jednak broju koji je klijent poslao. Ukoliko server primi negativan broj od klijenta, klijentu odgovoriti porukom \texttt{Neispravan poluprecnik}. \hfill (10p/6p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (1p)
+\end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

@@ -1,0 +1,226 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true,
+	literate=%
+         {á}{{\'a}}1
+         {í}{{\'i}}1
+         {é}{{\'e}}1
+         {ý}{{\'y}}1
+         {ú}{{\'u}}1
+         {ó}{{\'o}}1
+         {ě}{{\v{e}}}1
+         {š}{{\v{s}}}1
+         {č}{{\v{c}}}1
+         {ř}{{\v{r}}}1
+         {ž}{{\v{z}}}1
+         {ď}{{\v{d}}}1
+         {ť}{{\v{t}}}1
+         {ň}{{\v{n}}}1                
+         {ů}{{\r{u}}}1
+         {Á}{{\'A}}1
+         {Í}{{\'I}}1
+         {É}{{\'E}}1
+         {Ý}{{\'Y}}1
+         {Ú}{{\'U}}1
+         {Ó}{{\'O}}1
+         {Ě}{{\v{E}}}1
+         {Š}{{\v{S}}}1
+         {Č}{{\v{C}}}1
+         {Ř}{{\v{R}}}1
+         {Ž}{{\v{Z}}}1
+         {Ď}{{\v{D}}}1
+         {Ť}{{\v{T}}}1
+         {Ň}{{\v{N}}}1                
+         {Ů}{{\r{U}}}1 
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4R, Ispit - SEP3, 60p/30p}
+\date{23.09.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i zameniti svojim podacima.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{3h/2h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+  
+% ----------- BEGIN 1 -----------
+\item \textbf{Kviz (20p/12p)}
+\\Napraviti TCP klijent-server aplikaciju preko koje se korisnici takmi\v{c}e u kvizu. Server ima ulogu sudije u kvizu i vodi evidenciju o poenima takmičara (klijenata).
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog TCP servera (koriste\'c{}i \textit{Java Sockets API}) koji oslu\v{s}kuje na portu 12321. Pri pokretanju, server sa standardnog ulaza u\v{c}itava nisku koja predstavlja naziv tekstualnog fakla u kome se nalaze pitanja za kviz. Fajl ima format kao u primeru ispod. \hfill (2p)
+  \item Napraviti Java klasu koja ima ulogu TCP klijenta (koriste\'c{}i \textit{Java Sockets API}). Klijent formira konekciju sa lokanim serverom na portu 12321. Nakon uspostavljanja konekcije, klijent \v{s}alje serveru nisku koja predstavlja ime tog klijenta, učitanu sa standardnog ulaza. \hfill (2p)
+  \item Kad se skupi ta\v{c}no 5 takmi\v{c}ara (klijenata), tada kviz po\v{c}inje i server \v{s}alje svim klijentima poruku \textit{Kviz pocinje sada. Srecno!}. \hfill (2p)
+  \item Za svako u\v{c}itano pitanje server \v{s}alje svim u\v{c}esnicima kviza poruku u kojoj se nalazi pitanje i 4 ponudjena odgovora. \hfill (1p)
+  \item Klijenti od trenutka kad su primili poruku koja sadr\v{z}i pitanje, imaju 10 sekundi da po\v{s}alju odgovor (A, B, C ili D). \hfill (2p) 
+  \item U slu\v{c}aju da takmi\v{c}ar (klijent):
+  \begin{enumerate}
+      \item zakasni da po\v{s}alje odgvor: server mu \v{s}alje poruku \textit{Niste stigli da odgovorite na vreme.} i ne menja mu rezultat.
+      \item prvi pogre\v{s}no odgovori: server ga obave\v{s}tava porukom \textit{Netacan odgovor. Izgubili ste 0.5 poena} i umanjuje rezultat tog klijenta za 0.5 poena.
+      \item prvi ta\v{c}no odgovori: server mu dodaje jedan poen na trenutni rezultat i obave\v{s}tava ga o tome porukom \textit{Tacan odgovor. Osvojili ste poen}.
+      \item nije prvi dao ta\v{c}an odgovor: server mu \v{s}alje poruku \textit{Niste prvi dali tacan odgovor.} i ne menja mu rezultat.
+  \end{enumerate} \hfill (5p)
+  \item Nakon potro\v{s}enih svih pitanja u fajlu, server \v{s}alje svim klijentima poruku \textit{Kviz je zavrsen!} i rezultate u opadajućem poretku prema broju osvojenih poena u formatu \textit{ImeKlijenta brojPoena} \hfill (2p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (1p)
+\end{itemize}
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+
+\noindent
+\begin{lstlisting}
+  ulaz: /home/ispit/Desktop/MaterijaliZaKviz.txt
+  [Napomena: Sa zvezdicom je odredjen tacan odgovor.]
+  sadrzaj fajla:
+  1. Koliko zvezdica je imala zmajeva kugla koju je Goku dobio od deke?
+  A) 3
+  B) 4 *
+  C) 7
+  D) 5
+  2. Sta znaci Ichigo na japanskom?
+  A) jagoda *
+  B) sargarepa
+  C) malina
+  D) paradajz
+  3. Koju djavolju vocku je pojeo Luffy?
+  A) Mera Mera no Mi
+  B) Bari Bari no Mi
+  C) Toki Toki no Mi
+  D) Gomu Gomu no Mi *
+  4. Sta Naruto obozava da jede?
+  A) Mochi
+  B) Gyoza
+  C) Ramen *
+  D) Sushi
+\end{lstlisting}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP (20p/12p)}
+\\Napraviti UDP klijent-server aplikaciju preko koje se šalje deo sadržaja fajla.
+\begin{itemize}
+  \item Napraviti Java klasu koja ima ulogu lokalnog UDP servera, koji oslu\v{s}kuje na portu 12121.
+  Server sa standardnog ulaza učitava nisku, koja predstavlja naziv foldera u kome se nalaze fajlovi koje klijenti mogu zatra\v{z}iti.
+  Implementirati prijem UDP datagrama od klijenata koriste\'c{}i klasu \textit{DatagramPacket}. Za svaki prihvaćen datagram ispisati poruku na standardni izlaz sa informacijama o tom datagramu --- redni broj primljenog datagrama i IP adresu po\v{s}iljaoca. \hfill (6p/4p)
+  \item Napraviti Java klasu koja ima ulogu UDP klijenta. Klijent sa standardnog ulaza učitava nisku, koja predstvalja naziv fajla i dva neoznačena cela broja koji predstavljaju redne brojeve linija fajla. Klijent šalje serveru datagram, koriste\'c{}i klasu \textit{DatagramPacket}, koji sadrži naziv fajla i redne brojeve linija. Klijent zatim dobija datagram od servera, \v{c}iji sadr\v{z}aj ispisuje na standardni izlaz. \hfill (6p/4p)
+  \item Za svaki prihvaćen datagram sadržaja \texttt{naziv, broj1, broj2}, server po\v{s}iljaocu odgovara datagramom koji sadrži ise\v{c}ak fajla čiji je naziv određen niskom \texttt{naziv} od linije \texttt{broj1} do linije \texttt{broj2}. Fajlovi se tra\v{z}e samo u okviru odgovarajućeg foldera servera u\v{c}itanog na po\v{c}etku rada servera. Voditi računa o ispravnim granicama \texttt{[broj1, broj2]} i o tome da li fajl sadrži odgovarajući broj linija. U slučaju da nisu ispunjeni ovi uslovi, poslati klijentu poruku \texttt{Nepravilno zadata naredba}.
+  \hfill (6p/3p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+\end{itemize}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+
+% ----------- BEGIN 3 -----------
+ \item \textbf{Tokovi podataka i niti (15p) (za studente koji nisu radili projekat)}
+  \\Napisati program koji ispisuje ukupan broj pojavljivanja zadatog karaktera u svim tekstualnim fajlovima sa spiska URL-ova. 
+  \begin{itemize}
+    \item U datoteci \texttt{urls.txt} unutar direktorijuma \texttt{tests} na Desktop-u se nalazi spisak URL-ova (po jedan u svakoj liniji). Koriste\'c{}i odgovaraju\'c{}e \textbf{baferisane} ulazne tokove pro\v{c}itati sadr\v{z}aj pomenutog fajla i ispisati broj linija u tom fajlu. \hfill (2p)
+    \item Za svaku pro\v{c}itanu liniju fajla \texttt{urls.txt} kreirati novi URL objekat koriste\'c{}i \texttt{URL} klasu. Presko\v{c}iti sve linije koje ne predstavljaju validan URL. \hfill (1p)
+    \item Za svaki validni URL proveriti protokol koji se koristi. Ukoliko je protokol \texttt{FILE} i ukoliko putanja vodi do tekstualnog fajla (ekstenzija \texttt{.txt}), kreirati zasebnu nit koja \'c{}e otvoriti \textbf{baferisani} ulazni tok do tog fajla putem URL klase i pro\v{c}itati sadr\v{z}aj fajla (detalji obrade su u narednoj stavci). Kodnu stranu prilikom u\v{c}itavanja postaviti na UTF-8. Ukoliko fajl na datoj putanji ne postoji, ispisati poruku i ugasiti nit. \hfill (5p)
+    \item Pre parsiranja fajla \texttt{urls.txt}, sa standardnog ulaza u\v{c}itati jedan karakter. Prebrojati koliko se puta zadati karakter pojavljuje u svim fajlovima iz prethodne stavke tako \v{s}to \'c{}e svaka nit prebrojati pojavljivanja za fajl koji joj je dodeljen. Ispisati ukupan broj na standardni izlaz (videti primere ispisa ispod teksta zadatka). Pritom, paziti na sinhronizaciju niti ukoliko se koristi deljeni broja\v{c}. \hfill (5p)
+    \item Postarati se da program ispravno barata specijalnim slu\v{c}ajevima (npr. ako fajl ne postoji na datoj putanji) i ispravno zatvoriti sve kori\v{s}\'c{}ene resurse u slu\v{c}aju izuzetka. \hfill (2p)
+  \end{itemize}
+
+  \noindent
+  \begin{lstlisting}
+  ulaz:  a
+  izlaz: lines:     29
+         not found: /home/ispit/Desktop/tests/404.txt
+         result:    3915
+  \end{lstlisting}
+  \begin{lstlisting}
+  ulaz:  %
+  izlaz: lines:     29
+         not found: /home/ispit/Desktop/tests/404.txt
+         result:    0
+  \end{lstlisting}
+  \begin{lstlisting}
+  ulaz:  č
+  izlaz: lines:     29
+         not found: /home/ispit/Desktop/tests/404.txt
+         result:    1
+  \end{lstlisting}
+% ----------- END 3 -----------
+
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------
+

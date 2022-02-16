@@ -1,0 +1,9 @@
+SEP1:
+- novi (I)
+- UDP (N)
+- NBIO (D)
+
+SEP2:
+- ? (D)
+- TCP (I) 
+- PH (I) / UDP (N)

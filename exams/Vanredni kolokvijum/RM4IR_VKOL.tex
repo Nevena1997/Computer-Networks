@@ -1,0 +1,189 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Vanredni kolokvijum}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_vkol\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i preimenovati ga tako da ime\\
+      odgovara podacima studenta. Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} i otvoriti pomenuti direktorijum.\\
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{2h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{Tokovi podataka i niti (15p)}
+\\Napisati program koji ispisuje ukupan broj pojavljivanja zadatog HTML tag-a u svim HTML fajlovima sa zadatog spiska URL-ova. 
+\begin{itemize}
+  \item U datoteci \texttt{urls.txt} unutar direktorijuma \texttt{tests} na Desktop-u se nalazi spisak URL-ova (po jedan u svakoj liniji). Koriste\'c{}i odgovaraju\'c{}e \textbf{baferisane} ulazne tokove pro\v{c}itati sadr\v{z}aj pomenutog fajla i ispisati broj linija u tom fajlu. \hfill (2p)
+  \item Za svaku pro\v{c}itanu liniju fajla \texttt{urls.txt} kreirati novi URL objekat koriste\'c{}i \texttt{URL} klasu. Presko\v{c}iti sve linije koje ne predstavljaju validan URL. \hfill (1p)
+  \item Za svaki validni URL proveriti protokol koji se koristi. Ukoliko je protokol \texttt{FILE} i ukoliko putanja vodi do HTML fajla (ekstenzija \texttt{.html}), kreirati zasebnu nit koja \'c{}e otvoriti \textbf{baferisani} ulazni tok do tog fajla putem URL klase i pro\v{c}itati sadr\v{z}aj fajla (detalji obrade su u narednoj stavci). Kodnu stranu prilikom u\v{c}itavanja postaviti na UTF-8. Ukoliko fajl na datoj putanji ne postoji, ispisati odgovaraju\'c{}u poruku i ugasiti nit koja je pokrenuta da ga obradi. \hfill (5p)
+  \item Pre parsiranja fajla \texttt{urls.txt}, sa standardnog ulaza u\v{c}itati jednu nisku koja predstavlja naziv HTML tag-a. Prebrojati koliko se puta zadati tag pojavljuje u svim fajlovima iz prethodne stavke tako \v{s}to \'c{}e svaka nit prebrojati pojavljivanja za fajl koji joj je dodeljen. Ispisati ukupan broj na standardni izlaz (videti primere ispisa ispod teksta zadatka). Pritom, paziti na sinhronizaciju niti ukoliko se koristi deljeni broja\v{c}. \hfill (5p)
+  \item Postarati se da program ispravno barata specijalnim slu\v{c}ajevima (npr. ako fajl ne postoji na datoj putanji) i ispravno zatvoriti sve kori\v{s}\'c{}ene resurse u slu\v{c}aju izuzetka. \hfill (2p)
+\end{itemize}
+
+  \noindent
+  \begin{lstlisting}
+    ulaz:  p
+    izlaz: lines:     29
+           not found: /home/ispit/Desktop/tests/404.html
+           result:    50
+  \end{lstlisting}
+  \begin{lstlisting}
+    ulaz:  html
+    izlaz: lines:     29
+           not found: /home/ispit/Desktop/tests/404.html
+           result:    10
+  \end{lstlisting}
+  \begin{lstlisting}
+    ulaz:  a
+    izlaz: lines:     29
+           not found: /home/ispit/Desktop/tests/404.html
+           result:    3
+  \end{lstlisting}
+% ----------- END 1 -----------
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+% ----------- BEGIN 2 -----------
+\item \textbf{TCP Sockets (15p)}
+\\Implementirati server, koji će imati ulogu da održava \emph{in-memory} tabelu šahista i njihove trenutne rejtinge. Tabela ima kolone: \texttt{id (int)}, \texttt{naziv (String)} i \texttt{elo (int)}.
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu $1996$ koristeći \textbf{Socket} klasu. Nakon formiranja konekcije, klijent mo\v{z}e poslati vi\v{s}e zahteva serveru (zahtevi se unose sa standardnog ulaza), sve dok mu ne pošalje \texttt{bye}. Odgovori servera na zahtev se ispisuju na standardni izlaz. Mogući zahtevi su (implementirati u ovoj stavci samo slanje od strane klijenta): \hfill (3p)
+  \begin{itemize}
+      \item \textit{sel id} (\texttt{id} je tipa \texttt{int})
+      \item \textit{ins naziv} (\texttt{naziv} je tipa \texttt{String}) 
+      \item \textit{upd id elo} (\texttt{id} i \texttt{elo} su tipa \texttt{int})
+  \end{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu servera. Pokrenuti lokalni server na portu $1996$, koristeći \textbf{ServerSocket} klasu. Server za svakog primljenog klijenta pokreće zasebnu nit u kojoj \'c{}e se taj klijent obraditi tako \v{s}to se ispi\v{s}e poruka o pristiglom klijentu kao u primeru ispod. \hfill (2p)
+  \item Server pristigle zahteve obradjuje na slede\'c{}i na\v{c}in:
+  \begin{itemize}
+    \item \textit{sel id}: vra\'c{}a naziv i elo \v{s}ahiste sa datim identifikatorom \texttt{id} \hfill (2p)
+    \item \textit{ins naziv}: ubacuje u tabelu \v{s}ahistu sa datim imenom dodeljuju\'c{}i mu jedinstveni identifikator (slede\'c{}i slobodan ceo broj) i elo u vrednosti $1300$ (to je najmanja mogu\'c{}a vrednost za elo) i vra\'c{}a poruku o uspe\v{s}nosti operacije \hfill (2p)
+    \item \textit{upd id deltae}: vr\v{s}i izmenu elo vrednosti \v{s}ahiste sa identifikatorom \texttt{id} za \texttt{deltae} i vra\'c{}a poruku o uspe\v{s}nosti operacije \hfill (2p)
+  \end{itemize}
+  \item Ukoliko bilo koji od ovih zahteva nije ispravno formiran ili nije naveden iznad, vratiti tekst kao u primerima ispod. \hfill(1p)
+  \item Imajte u vidu da mogu da se dese konfliktne situacije (kao npr. da dva klijenta žele da promene elo istoj osobi). Obezbediti da se ovakvi zahtevi pravilno obrade. Takođe, obezbediti da u slučaju izuzetaka, resursi budu ispravno zatvoreni.\hfill (3p)
+\end{itemize}
+
+\vspace{10pt}
+\noindent
+\begin{tabular}{lll}
+  \begin{lstlisting}
+  > ins Magnus Carlsen
+  ins je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1300
+  > upd 1 30
+  upd je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1330
+  > upd 1 -10
+  upd je uspesno izvrsen
+  > sel 1
+  Magnus Carlsen: 1320
+  > bye
+  \end{lstlisting}&
+  \begin{lstlisting}
+  > ins Fabiano Caruana
+  ins je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 1300
+  > upd 1 1500
+  upd je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 2800
+  > upd 1 -10000
+  upd je uspesno izvrsen
+  > sel 1
+  Fabiano Caruana: 1300
+  > bye
+  \end{lstlisting}&
+  \begin{lstlisting}
+  > ins Marko
+  ins je uspesno izvrsen
+  > sel 1
+  Marko: 1300
+  // drugi klijent: upd
+  > sel 1 
+  Marko: 1400
+  > ins Marko
+  ins je uspesno izvrsen
+  // nije isti Marko
+  > sel 2
+  Marko: 1300
+  > bye
+  \end{lstlisting}
+\end{tabular}
+% ----------- END 1 -----------
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------

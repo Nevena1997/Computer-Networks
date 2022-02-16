@@ -1,0 +1,53 @@
+\documentclass[]{article}
+
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\pagenumbering{gobble}
+
+\title{Ra\v{c}unarske mre\v{z}e 2019, Kolokvijum, 4RA}
+\author{}
+\date{08.04.2019.}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item Selektivno kopiranje fajla \textbf{(10p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja koriste\'c{}i odgovaraju\'c{}e ulazne i izlazne tokove kopira sadr\v{z}aj tekstualnog fajla sa imenom koje se unosi preko standardnog ulaza u fajl \texttt{names.txt}. Postarati se da se u slu\v{c}aju izuzetka prika\v{z}e odgovaraju\'c{}a poruka (razli\v{c}ita za razli\v{c}ite tipove izuzetaka). \hfill (2p)
+    \item Prekopirati samo one niske koje predstavljaju validna vlastita imena i prezimena (po\v{c}inju velikim slovom, sva ostala slova su mala i ne sadr\v{z}e karaktere koji nisu slova) (npr. Petar Petrovi\'c{}). \hfill (2p)
+    \item Koristiti baferisanje ulaznog i izlaznog toka zarad smanjenja broja IO operacija. \hfill (2p)
+    \item Niske ispisati u fajl tako da po jedna niska bude u svakoj liniji. \hfill (1p)
+    \item Podesiti kodne strane za oba fajla na UTF-8. \hfill (1p)
+    \item Postarati se da se u slu\v{c}aju izuzetka garantuje da su zatvoreni svi kori\v{s}\'c{}eni resursi. \hfill (1p)
+  \end{itemize}
+
+  \item Matri\v{c}no mno\v{z}enje \textbf{(10p)}
+
+  Napraviti Java aplikaciju koja koriste\'c{}i niti mno\v{z}i dve kvadratne matrice.
+  \begin{itemize}
+    \item Kao ulaz u program se daje putanja do tekstualnih fajlova u kojima se nalaze kvadratne matrice koje je potrebno pomno\v{z}iti - po jedna u svakom fajlu. U\v{c}itati sadr\v{z}aje fajlova i ispisati matrice na standardni izlaz. \hfill (1p)
+    \item Kreirati posebnu klasu \texttt{MatrixMultiplicationException} i baciti izuzetak ovog tipa ukoliko matrice ne mogu da se mno\v{z}e. \hfill (1p)
+    \item Ozna\v{c}imo dimenzije matrica sa $n \times n$. Pokrenuti $n^2$ niti i postarati se da svaka ra\v{c}una jedan element rezultuju\'c{}e matrice. Ispisati rezultuju\'c{}u matricu na standardni izlaz. \hfill (4p)
+    \item Ra\v{c}unati zbir elemenata rezultuju\'c{}e matrice tokom rada svake niti. Kada svaka nit izra\v{c}una svoju vrednost, a\v{z}urira globalni zbir. Postarati se da nema trke za podacima - obezbediti kriti\v{c}nu sekciju proizvoljnim mehanizmom. \hfill (3p)
+    \item Voditi ra\v{c}una o obradi izuzetaka - program ili nit ne sme da se zaustavi u slu\v{c}aju izuzetka (npr. ukoliko se desi izuzetak prilikom ra\v{c}unanja elemenata rezultuju\'c{}e matrice, smatrati da je rezultat $0$ i nastaviti sa radom). \hfill (1p)
+  \end{itemize}
+
+  \item URL Scanner \textbf{(10p)}
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja sa standarnog ulaza u\v{c}itava URL-ove jedan po jedan u svakoj liniji. Formirati URL objekat za svaki u\v{c}itani URL i ispisati na standardni izlaz poruku ukoliko URL nije validan. \hfill (2p)
+    \item Ispisati protokol, \texttt{authority} i putanju iz URL-a koriste\'c{}i URL klasu. Izlaz formatirati na slede\'c{}i na\v{c}in:\\
+    \texttt{<KORI\v{S}\'C{}ENI\_PROTOKOL> <AUTHORITY> <PUTANJA\_DO\_RESURSA>} npr.\\
+    ulaz: \texttt{http://www.matf.bg.ac.rs:3030/dir1/dir2/test.txt} \\
+    izlaz: \texttt{http www.matf.bg.ac.rs:3030 /dir1/dir2/test.txt} \hfill (3p) 
+    \item Ukoliko se unese IP adresa unutar URL-a dodatno uz informacije iznad ispisati informaciju o verziji IP adrese koja je uneta i ako je to IPv4 adresa ispisati njene bajtove, u formatu:\\
+    \texttt{(v<VERZIJA\_IP\_ADRESE>) <KORI\v{S}\'C{}ENI\_PROTOKOL> <PUTANJA\_DO\_RESURSA> [<BAJTOVI\_ADRESE>]} npr.\\
+    ulaz: \texttt{http:///123.123.123.123:80/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v4) http /dir1/dir2/test.txt [123 123 123 123]} \\ 
+    ulaz: \texttt{sftp://2001:0db8:85a3:::8a2e:0370:7334/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v6) sftp /dir1/dir2/test.txt} \hfill (4p) 
+    \item Postarati se da u slu\v{c}aju izuzetka aplikacija ispravno zatvori kori\v{s}\'c{}ene resurse. \hfill (1p)
+  \end{itemize}
+\end{enumerate}
+
+\end{document}

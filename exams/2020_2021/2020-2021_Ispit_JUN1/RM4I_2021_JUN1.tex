@@ -1,0 +1,154 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e, Ispit - JUN1 2021}
+\date{}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum u formatu \texttt{rm\_rok\_Ime\_Prezime\_mXGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i ubaciti svoje podatke u ime.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+\item \textbf{URL Scanner (15p) (za studente koji nisu radili projekat)}
+  \\Napisati Java aplikaciju koja obrađuje URL-ove. U direktorijumu \texttt{urls}, unutar direktorijuma \texttt{tests} na Desktop-u, nalaze se datoteke koje sadrže spisak URL-ova (po jedan u svakoj liniji).
+  \begin{itemize}
+    \item Za svaku datoteku pokrenuti zasebnu nit koja će obrađivati i ispisivati statistiku za tu datoteku. \hfill (2p)
+    \item Za svaku pročitanu liniju datoteke kreirati novi URL objekat koristeći \texttt{URL} klasu. Preskočiti sve linije koje ne predstavljaju validan URL. \hfill (1p)
+    \item Za svaki validni URL ispisati protokol, \texttt{authority} i putanju iz URL-a koristeći URL klasu. Izlaz formatirati na sledeći način:\\
+    \texttt{<KORIŠĆENI\_PROTOKOL> <AUTHORITY> <PUTANJA\_DO\_RESURSA>}\\
+    Primer:\\
+    ulaz: \texttt{http://www.matf.bg.ac.rs:3030/dir1/dir2/test.txt} \\
+    izlaz: \texttt{http www.matf.bg.ac.rs:3030 /dir1/dir2/test.txt} \hfill (4p)
+    \item Postarati se da se ispisi svake niti na standardni izlaz ne prepliću. \hfill (3p)
+    \item Ukoliko se unese IP adresa unutar URL-a, dodatno uz informacije iznad ispisati i informaciju o verziji IP adrese koja je uneta i ako je to IPv4 adresa ispisati njene bajtove, u formatu:\\
+    \texttt{(v<VERZIJA\_IP\_ADRESE>) <KORIŠĆENI\_PROTOKOL> <PUTANJA\_DO\_RESURSA> [<BAJTOVI\_ADRESE>]}\\
+    Primer:\\
+    ulaz: \texttt{http:///123.123.123.123:80/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v4) http /dir1/dir2/test.txt [123 123 123 123]} \\
+    ulaz: \texttt{sftp://2001:0db8:85a3:::8a2e:0370:7334/dir1/dir2/test.txt} \\
+    izlaz: \texttt{(v6) sftp /dir1/dir2/test.txt} \hfill (4p) 
+    \item Postarati se da program ispravno obradjuje specijalne slučjeve i ispravno zatvoriti sve korišćene resurse u slučaju izuzetka. \hfill (1p)
+  \end{itemize}
+% ----------- END 1 -----------
+
+\vspace{15pt}
+\begin{center}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+
+\newpage
+
+% ----------- BEGIN 2 -----------
+\item \textbf{UDP Sockets (20p/12p)}
+\\Napraviti osnovu za klijent-server Java aplikaciju koriste\'c{}i \texttt{Datagram API} koja šifruje poruku koriste\'c{}i Morzeov k\^od. Morzeova azbuka se sastoji od dva simbola: \texttt{.} (\emph{dit}) i \texttt{-} (\emph{dah}). Svaki karakter se kodira odgovaraju\'c{}im nizom ovih simbola, a \v{c}itave poruke se kodiraju tako \v{s}to se dodaje pauza nakon svakog karaktera, kao i du\v{z}a pauza nakon svake re\v{c}i.
+
+\begin{itemize}
+  \item Napraviti Java aplikaciju koja ima ulogu UDP klijenta. Poslati datagram lokalnom serveru na portu 23456 koja sadrži nisku (koja može da sadrži beline). Niska se učitava sa standardnog ulaza na klijentskoj strani. Primiti datagram koji predstavlja odgovor servera i rezultat ispisati na standardni izlaz. \hfill(8p/4p)
+  \item Napraviti Java aplikaciju koja ima ulogu servera koji sluša na portu 23456. Kada dobije nisku od klijenta tu nisku transformiše Morzeovom azbukom u šifrovanu poruku koriste\'c{}i datoteku \textit{morse.txt}. Posle svakog karaktera dodati razmak koji predstavlja pauzu, a nakon svake re\v{c}i dodati tri razmaka koji predstavljaju trostruku pauzu. Na kraju poruke dodati signal za kraj: \texttt{.-.-.-} \hfill(10p/7p)
+  \item Postarati se da su svi resursi ispravno zatvoreni u slučaju izuzetka. \hfill(2p/1p)
+\end{itemize}
+
+\vspace{10pt}
+\noindent
+  \begin{lstlisting}
+    Klijent:   Morze
+    Server:    -- --- .-. --.. .   .-.-.-
+  \end{lstlisting}
+  \begin{lstlisting}
+    Klijent:   Orao Pao
+    Server:    --- .-. .- ---   .--. .- ---   .-.-.-  
+  \end{lstlisting}
+% ----------- END 2 -----------
+
+\vspace{15pt}
+
+% ----------- BEGIN 3 -----------
+\item \textbf{Non-Blocking IO (25p/18p)}
+\\Napraviti klient-server Java aplikaciju koriste\'c{}i \texttt{TCP Sockets/Channels API} koja se mo\v{z}e iskoristiti kao osnova za kreiranje karta\v{s}kih igara.
+\begin{itemize}
+    \item Napisati Java klasu koja ima ulogu \textbf{blokiraju\'c{}eg} TCP klijenta koriste\'c{}i \texttt{Java Channels API}. Klijent formira konekciju sa lokanim serverom na portu 12345 i zatim \v{s}alje serveru broj učitan sa standardnog ulaza koji predstavlja broj karti koje se izvla\v{c}e iz serverskog \v{s}pila. \hfill (4p/3p)
+    \item Napisati Java klasu koja ima ulogu lokalnog \textbf{neblokiraju\'c{}eg} TCP servera, koji oslu\v{s}kuje na portu 12345, koriste\'c{}i \texttt{Java Channels API}. Karte predstaviti na \emph{proizvoljan} na\v{c}in, sa narednim ograni\v{c}enjima:
+    \begin{itemize}
+      \item Svaka karta se sastoji od vrednosti i znaka
+      \item Vrednost karte mo\v{z}e biti od 2 do 10 za karte bez slike dok \v{z}andar ima vrednost 11, kraljica 12, kralj 13 i kec 14
+      \item Znak mo\v{z}e biti \texttt{pik}, \texttt{herc}, \texttt{tref} ili \texttt{karo}
+    \end{itemize} \hfill (2p/2p)
+    \item Server slučajnim izborom generiše jean \v{s}pil karata prilikom pokretanja. Kreirati standardni \v{s}pil od 52 karte i prome\v{s}ati ga prilikom kreiranja servera. Nakon toga ispisati \v{s}pil na standardni izlaz, svaku kartu u zasebnom redu, u formatu \texttt{vrednost.znak}, na primer \texttt{4.Pik} ili \texttt{14.Karo}. \hfill (3p/2p)
+    \item Nakon konekcije, klijent \v{s}alje serveru broj karti koje \v{z}eli da izvu\v{c}e iz \v{s}pila. Server izvla\v{c}i toliko karti sa vrha \v{s}pila \v{s}alje ih klijentu (proizvoljno implementirati slanje). Jednom izvu\v{c}ene karte se ne vra\'c{}aju u \v{s}pil. Klijent ispisuje primljene karte na standardni izlaz. \hfill (10p/8p)
+    \item Ukoliko je broj koji je klijent poslao ve\'c{}i od trenutnog broja karata u \v{s}pilu ili manji od 1, poslati tu informaciju korisniku na proizvoljan na\v{c}in i ispisati odgovaraju\'c{}u poruku na klijentskoj strani. \hfill (4p/2p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka. \hfill (2p/1p)
+  \end{itemize}
+% ----------- END 3 -----------
+
+\end{enumerate}
+
+\end{document}
+% ----------- END DOCUMENT -----------

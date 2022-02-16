@@ -1,0 +1,242 @@
+\documentclass[]{article}
+
+% ----------- BEGIN PACKAGES -----------
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{url}
+\usepackage{float}
+\usepackage[graphicx]{realboxes}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{adjustbox}
+\lstset {
+    language=Java,
+    frame=none,
+    %xleftmargin=-.25in,
+    %xrightmargin=.25in
+    framesep=10pt,
+    tabsize=4,
+    showstringspaces=false,
+    upquote=true,
+    commentstyle=\color{black},
+    keywordstyle=\color{black},
+    stringstyle=\color{black},
+    basicstyle=\small\ttfamily,
+    emph={int,char,double,float,unsigned,void,bool},
+    emphstyle={\color{black}},
+    escapechar=\&,
+    classoffset=1,
+    morekeywords={>,<,.,;,,,-,!,=,~},
+    keywordstyle=\color{black},
+    classoffset=0,
+    breaklines=true
+}
+\pagenumbering{gobble}
+% ----------- END PACKAGES -----------
+
+% ----------- BEGIN PREAMBLE -----------
+\titlespacing\title{left spacing}{before spacing}{after spacing}[right]
+
+\title{Ra\v{c}unarske mre\v{z}e 4I, Ispit - JAN2}
+\date{24.01.2020.}
+
+\begin{document}
+
+\makeatletter
+\begin{center}
+
+{\fontsize{12pt}{14pt}\selectfont\bfseries\@title\par}
+\@date
+\vspace{5mm}
+
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+      Pro\v{c}itati sve zadatke \textbf{pa\v{z}ljivo} pre rada - sve \v{s}to nije navedeno ne mora da se implementira! 
+
+      Na \texttt{Desktop}-u se nalazi zip arhiva. Unutar arhive se nalazi direktorijum sa imenom \texttt{rm\_rok\_Ime\_Prezime\_miGGXXX}\\
+      u kome se nalazi validan IntelliJ projekat. Izvu\'c{}i direktorijum iz arhive na Desktop i zameniti svojim podacima.\\
+      Otvoriti IntelliJ IDEA, izabrati opciju \texttt{Open project} (ne \texttt{Import project}!) i otvoriti pomenuti direktorijum.\\ 
+      Sve kodove ostaviti unutar ve\'c{} kreiranih Java fajlova. \textbf{Kodovi koji se ne prevode se ne\'c{}e pregledati.}\\
+      \textbf{Nepo\v{s}tovanje formata ulaza/izlaza nosi kaznu od -10\% poena na zadatku!}
+      Vreme za rad: \textbf{2.5h}.
+    }%
+}
+\end{center}
+\makeatother
+% ----------- END PREAMBLE -----------
+
+\vspace{5pt}
+
+% ----------- BEGIN DOCUMENT -----------
+\begin{enumerate}
+
+% ----------- BEGIN 1 -----------
+  \item \textbf{Daytime klijent-server (20p)}
+  \\Implementirati serverski program koji povezanim klijentima na svakih $5$ sekundi \v{s}alje trenutno vreme u formatu:\\
+  \texttt{dd.mm.yyyy | hh:mm:ss} (videti primer poziva ispod).
+  \begin{itemize}
+    \item Napraviti Java aplikaciju koja ima ulogu servera. Pokrenuti \textbf{neblokiraju\'c{}i} lokalni server na portu 12345 koriste\'c{}i Java Channels API. Kada do servera pristigne klijent, server ga prihvata i zapo\v{c}inje obradu. Inicijalno implementirati da server klijentima \v{s}alje bilo kakvu nisku koja sadr\v{z}i trenutno vreme, samo jednom. \hfill (3p)
+    \item Postarati se da server klijentima periodi\v{c}no svakih $5$ sekundi \v{s}alje trenutno vreme. Dakle, svaki klijent dobija novu nisku nakon $5$ sekundi. Takodje, server ne raskida vezu do klijenta nakon jednog slanja ve\'c{} mu \v{s}alje poruke sve dok klijent ne prekine vezu. \hfill (4p)
+    \item Postarati se da je niska koju server \v{s}alje klijentima u formatu:\\
+    \texttt{dd.mm.yyyy | hh:mm:ss} \hfill (2p)
+    \item Postarati se da server nastavi sa radom ukoliko neki klijent raskine vezu. \hfill (2p)
+    \item Napraviti Java aplikaciju koja ima ulogu klijenta. Povezati se na lokalni server na portu 12345 koriste\'c{}i \textbf{blokiraju\'c{}i} Java Channels API i \v{c}itati podatke primljene od servera u beskona\v{c}noj petlji. Primljene podatke ispisivati na standardni izlaz bez izmena. \hfill (2p)
+    \item Izmeniti klijenta tako da se primanje podataka od servera vr\v{s}i u zasebnoj niti, dok program u glavnoj niti \v{c}eka na unos sa standardnog ulaza koji predstavlja ``signal'' za prekid rada klijentskog programa. Kada korisnik zatra\v{z}i zaustavljanje klijenta, klijent se zaustavlja. \hfill (6p)
+    \item Postarati se da su svi resursi ispravno zatvoreni u slu\v{c}aju izuzetka (za oba programa). \hfill (1p)
+  \end{itemize}
+
+  \vspace{10pt}
+  \noindent
+  \begin{tabular}{lll}
+  \begin{lstlisting}
+  Klijent 1:
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Klijent 2:
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Server:
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting}      
+  \end{lstlisting}&
+  \begin{lstlisting}
+  [start]
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  [start]
+  \end{lstlisting}&
+  \begin{lstlisting}      
+  \end{lstlisting}&
+  \begin{lstlisting}
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  Connecting...
+  \end{lstlisting}&
+  \begin{lstlisting}      
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Accepted client
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting}    
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Serving time...
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  24.01.2020 | 09:00:00
+  \end{lstlisting}&
+  \begin{lstlisting}  
+  [start]      
+  \end{lstlisting}&
+  \begin{lstlisting}
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting} 
+  Connecting...
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Accepted client
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting} 
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Serving time...
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  24.01.2020 | 09:00:05
+  \end{lstlisting}&
+  \begin{lstlisting}   
+  24.01.2020 | 09:00:05
+  \end{lstlisting}&
+  \begin{lstlisting}
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  [end]
+  \end{lstlisting}&
+  \begin{lstlisting}   
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Client disconnected
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting}   
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Serving time...
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting}   
+  24.01.2020 | 09:00:10
+  \end{lstlisting}&
+  \begin{lstlisting}
+  \end{lstlisting}\\
+  \begin{lstlisting}
+  \end{lstlisting}&
+  \begin{lstlisting}   
+  [end]
+  \end{lstlisting}&
+  \begin{lstlisting}
+  Client disconnected
+  \end{lstlisting}
+  \end{tabular}
+% ----------- END 1 -----------
+\begin{center}
+  \vspace{20pt}
+  \textbf{------------------------------------------------------------------------------------------------------------------------------}
+\end{center}
+\vspace{10pt}
+\textit{Napomena: Ohrabrujemo studente da koriste \texttt{netcat} kako bi testirali delimi\v{c}ne implementacije i otkrili gre\v{s}ke pre vremena. Takodje, ukoliko se npr. presko\v{c}i implementacija servera, mo\v{z}e se mock-ovati server putem \texttt{netcat}-a.} 
+\begin{center}
+  \vspace{10pt}
+  \textbf{--------------------------------------------------- Okrenite stranu! ---------------------------------------------------}
+\end{center}
+\newpage
+% ----------- BEGIN 2 -----------
+  \item \textbf{Implementacija daytime protokol handler-a (10p)}
+  \\Implementirati podr\v{s}ku za URL-ove koji koriste \texttt{daytime} protokol. Opis protokola je dat u prvom zadatku. 
+  \begin{itemize}
+    \item Prilikom otvaranja konekcije, formirati vezu koriste\'c{}i Socket API. Povezati se na server i port na osnovu URL-a i otvoriti ulazni tok do odgovora od strane servera. \hfill (5p)
+    \item Ukoliko port nije naveden unutar URL-a, koristiti podrazumevani port isti kao u prvom zadatku. \hfill (1p)
+    \item Predefinisati \texttt{getInputStream()} metod da vra\'c{}a ulazni tok do odgovora od strane servera ukoliko je konekcija ostvarena, a \texttt{null} ako nije. \hfill (1p)
+    \item Postarati se da je mogu\'c{}e bezbedno koristiti implementirani handler u vi\v{s}enitnom okru\v{z}enju. \hfill (1p)
+    \item Napisati jednostavan test - kreirati URL, otvoriti konekciju do resursa i preuzeti sadr\v{z}aj (videti primere u nastavku). \hfill (2p)
+  \end{itemize}
+  
+  \vspace{10pt}
+  \noindent
+    \begin{lstlisting}
+      URL:   daytime://localhost:12345
+      izlaz: 24.01.2020 | 09:00:00
+             24.01.2020 | 09:00:05
+             24.01.2020 | 09:00:10
+    \end{lstlisting}
+    \begin{lstlisting}
+      URL:   daytime://localhost
+      izlaz: 24.01.2020 | 09:00:00
+             24.01.2020 | 09:00:05
+             24.01.2020 | 09:00:10
+    \end{lstlisting}
+    \begin{lstlisting}
+      URL:   daytime://nonexistingserver:12345
+      izlaz: Connection failed.
+    \end{lstlisting}
+    \begin{lstlisting}
+      URL:   daytime://nonexistingserver:9999
+      izlaz: Connection failed.
+    \end{lstlisting}
+% ----------- END 2 -----------
+\end{enumerate}
+\end{document}
+% ----------- END DOCUMENT -----------
